@@ -1,19 +1,13 @@
-import type { NextPage } from 'next'
-
 import { Header, ListItem } from '@common'
-import axios from 'axios'
 
 import { ICONS } from '@utils/constants'
-
-import { useTanstack } from '@hooks'
 
 import { getSongs } from '../../actions'
 
 import { PageContent } from './components'
 
 const Home = async () => {
-  const data = await getSongs()
-  console.log(data)
+  const songs = await getSongs()
 
   return (
     <div className='text-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto'>
@@ -32,7 +26,7 @@ const Home = async () => {
           <h1 className='text-white text-2xl font-semibold'>Newest songs</h1>
         </div>
 
-        <PageContent songs={data} />
+        <PageContent songs={songs} />
       </div>
     </div>
   )

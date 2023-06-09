@@ -21,13 +21,13 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children }) => {
   const pathname = usePathname()
 
-  const routes: Route[] = useMemo(
+  const routes = useMemo(
     () => [
       { icon: HiHome, label: 'Home', active: pathname !== '/search', href: '/' },
       { icon: BiSearch, label: 'Search', active: pathname === '/search', href: '/search' }
     ],
     [pathname]
-  )
+  ) satisfies Route[]
 
   return (
     <div className='flex h-full'>

@@ -53,12 +53,14 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
     }
   }
 
-  const arrows: Arrow[] = [
+  const arrows = [
     { icon: RxCaretLeft, onClick: back },
     { icon: RxCaretRight, onClick: forward }
-  ]
+  ] satisfies Arrow[]
 
-  const mobileIcons: { icon: IconType }[] = [{ icon: HiHome }, { icon: BiSearch }]
+  const mobileIcons = [{ icon: HiHome }, { icon: BiSearch }] satisfies {
+    icon: IconType
+  }[]
 
   const headerActions = {
     login: [

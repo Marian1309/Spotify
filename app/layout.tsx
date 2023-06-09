@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 0
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
+const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <html lang='en'>
       <body className={figTree.className}>
