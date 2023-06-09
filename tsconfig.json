@@ -28,6 +28,7 @@
       "@hooks": ["./hooks"],
       "@hooks/zustand": ["./hooks/zustand"],
       "@context": ["./context"],
+      "@actions": ["./actions"],
 
       "@types": ["./@types.ts"],
       "db_types": ["./@db_types.ts"],

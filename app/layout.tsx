@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
@@ -12,6 +12,8 @@ import SupabaseProvider from '@providers/supabase'
 
 import { ICONS } from '@utils/constants'
 
+import { getSongsById } from '@actions'
+
 import '@styles/globals.scss'
 
 const figTree = Figtree({ subsets: ['latin'], fallback: ['system-ui', 'arial'] })
@@ -23,9 +25,11 @@ export const metadata: Metadata = {
   authors: [{ name: 'Marian', url: 'https://github.com/Marian1309' }]
 }
 
-export const revalidate = 0
+export const revalidate = 3600
 
-const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const userSongs = await getSongsById()
+
   return (
     <html lang='en'>
       <body className={figTree.className}>
@@ -34,7 +38,7 @@ const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar>{children}</Sidebar>
+            <Sidebar songs={userSongs}>{children}</Sidebar>
           </UserProvider>
         </SupabaseProvider>
       </body>

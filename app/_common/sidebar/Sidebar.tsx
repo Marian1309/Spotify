@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 
-import type { Route } from '@types'
+import type { Route, Song } from '@types'
 
 import Box from './Box'
 import Library from './Library'
@@ -16,9 +16,10 @@ import SidebarItem from './SidebarItem'
 
 interface SidebarProps {
   children: ReactNode
+  songs: Song[]
 }
 
-const Sidebar: FC<SidebarProps> = ({ children }) => {
+const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
   const pathname = usePathname()
 
   const routes = useMemo(
@@ -41,7 +42,7 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
         </Box>
 
         <Box className='h-[calc(100vh-130px)] overflow-y-auto'>
-          <Library />
+          <Library songs={songs} />
         </Box>
       </div>
 

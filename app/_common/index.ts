@@ -1,4 +1,5 @@
 export { default as LazyLoadImage } from './LazyLoadImage'
+export { default as Input } from './Input'
 
 export { default as Sidebar } from './sidebar/Sidebar'
 export { default as Header } from './Header'

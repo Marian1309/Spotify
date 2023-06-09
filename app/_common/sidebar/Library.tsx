@@ -5,10 +5,18 @@ import type { FC } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { TbPlaylist } from 'react-icons/tb'
 
+import type { Song } from '@types'
+
 import { useUser } from '@hooks'
 import { useAuthModal, useUploadModal } from '@hooks/zustand'
 
-const Library: FC = () => {
+import MediaItem from './MediaItem'
+
+interface LibraryProps {
+  songs: Song[]
+}
+
+const Library: FC<LibraryProps> = ({ songs }) => {
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()
   const { user } = useUser()
@@ -36,7 +44,11 @@ const Library: FC = () => {
         />
       </div>
 
-      <div className='flex flex-col gap-y-2 mt-4 px-3'>List of songs!</div>
+      <div className='flex flex-col gap-y-2 mt-4 px-3'>
+        {songs.map((song) => (
+          <MediaItem data={song} key={song.id} onClick={() => {}} />
+        ))}
+      </div>
     </div>
   )
 }

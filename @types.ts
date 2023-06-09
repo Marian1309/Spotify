@@ -1,5 +1,10 @@
 import type { IconType } from 'react-icons'
 import type Stripe from 'stripe'
+import type { z } from 'zod'
+
+import type { songSchema } from '@utils/schemas'
+
+export type UploadSchema = z.infer<typeof songSchema> & { image: any; song: any }
 
 export type Song = {
   id: string

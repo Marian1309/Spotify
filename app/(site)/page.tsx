@@ -2,7 +2,7 @@ import { Header, ListItem } from '@common'
 
 import { ICONS } from '@utils/constants'
 
-import { getSongs } from '../../actions'
+import { getSongs } from '@actions'
 
 import { PageContent } from './components'
 

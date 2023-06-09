@@ -5,41 +5,50 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { LazyLoadImage } from '@common'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import type { FieldValues, SubmitHandler } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
+import type { UploadSchema } from '@types'
+
+import { getPath } from '@utils/helpers'
+import { songSchema } from '@utils/schemas'
+
 import { useUser } from '@hooks'
-import { useUploadModal } from '@hooks/zustand'
+import { useUploadModal, useUploadPreview } from '@hooks/zustand'
 
 import Button from '../Button'
 import Input from '../Input'
 
 import Modal from './Modal'
 
-type DefaultValues = {
-  author: string
-  title: string
-  song: any
-  image: any
-}
-
 const UploadModal: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const uploadModal = useUploadModal()
-  const { user } = useUser()
-  const supabaseClient = useSupabaseClient()
   const { refresh } = useRouter()
+  const supabaseClient = useSupabaseClient()
 
-  const { register, handleSubmit, reset } = useForm<FieldValues>({
+  const uploadModal = useUploadModal()
+  const { previewImage, previewAudio, setPreviewImage, setPreviewAudio } =
+    useUploadPreview()
+  const { user } = useUser()
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<UploadSchema>({
     defaultValues: {
       author: '',
       title: '',
       song: null,
       image: null
-    }
+    },
+    resolver: zodResolver(songSchema)
   })
 
   const onChange = (open: boolean) => {
@@ -49,7 +58,7 @@ const UploadModal: FC = () => {
     }
   }
 
-  const onSubmit: SubmitHandler<FieldValues | DefaultValues> = async (values) => {
+  const onSubmit: SubmitHandler<UploadSchema> = async (values) => {
     try {
       setIsLoading(true)
 
@@ -111,7 +120,7 @@ const UploadModal: FC = () => {
 
   return (
     <Modal
-      description='Upload an mp3 file'
+      description=''
       isOpen={uploadModal.isOpen}
       onChange={onChange}
       title='Add a song'
@@ -120,41 +129,80 @@ const UploadModal: FC = () => {
         <Input
           disabled={isLoading}
           id='title'
-          {...register('title', { required: true })}
+          {...register('title')}
           placeholder='Song title'
         />
+        {errors.title && (
+          <p className='text-md italic text-red-500'>
+            {errors?.title?.message as string}
+          </p>
+        )}
+
         <Input
           disabled={isLoading}
           id='author'
-          {...register('author', { required: true })}
+          {...register('author')}
           placeholder='Song author'
         />
+        {errors.author && (
+          <p className='text-md italic text-red-500'>
+            {errors?.author?.message as string}
+          </p>
+        )}
 
         <div>
-          <div className='pb-1'>Select a song name</div>
+          <div className='text-lg pb-1'>Select a song</div>
 
           <Input
             accept='.mp3'
             disabled={isLoading}
             id='song'
             type='file'
-            {...register('song', { required: true })}
+            {...register('song')}
+            onChange={(e) => setPreviewAudio(getPath(e))}
             placeholder='Song author'
           />
+          {errors.song && (
+            <p className='text-md italic text-red-500 mt-2'>
+              {errors?.song?.message as string}
+            </p>
+          )}
         </div>
 
+        {previewAudio && (
+          <>
+            <h3>Song preview</h3>
+            <audio className='w-full' controls>
+              <source src={previewAudio} type='audio/mp3' />
+            </audio>
+          </>
+        )}
+
         <div>
-          <div className='pb-1'>Select an image</div>
+          <div className='pb-1 text-lg'>Select a square photo (example: 200x200)</div>
 
           <Input
             accept='image/*'
             disabled={isLoading}
             id='image'
             type='file'
-            {...register('image', { required: true })}
+            {...register('image')}
+            onChange={(e) => setPreviewImage(getPath(e))}
             placeholder='Song author'
           />
+          {errors.image && (
+            <p className='text-md italic text-red-500 mt-2'>
+              {errors?.image?.message as string}
+            </p>
+          )}
         </div>
+
+        {previewImage && (
+          <>
+            <h3>Image preview</h3>
+            <LazyLoadImage alt='preview' src={previewImage} />
+          </>
+        )}
 
         <Button disabled={isLoading} type='submit'>
           Create

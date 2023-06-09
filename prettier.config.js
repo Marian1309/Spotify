@@ -21,7 +21,7 @@ const baseRules = {
     '^@nextAuth',
     '^@providers',
     '^@utils',
-    '^@hooks',
+    '^@hooks|^@actions',
     '^@components',
     '^@styles',
     '^../(.*)$',

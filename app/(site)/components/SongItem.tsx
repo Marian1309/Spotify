@@ -26,7 +26,7 @@ const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
       onClick={() => onClick(data.id)}
     >
       <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>
-        <LazyLoadImage className='object-cover' src={imagePath || ICONS.liked} />
+        <LazyLoadImage alt='song' src={imagePath || ICONS.liked} />
       </div>
 
       <div className='flex flex-col items-start w-full p-4 gap-y-1 text-white'>
