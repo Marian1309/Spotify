@@ -1,0 +1,150 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "next",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "prettier",
+    "@typescript-eslint",
+    "@next/eslint-plugin-next"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "arrow-body-style": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp": ["error", { "component": true, "html": true }],
+    "no-restricted-imports": "off",
+    "no-cond-assign": "off",
+    "no-irregular-whitespace": "error",
+    "no-unexpected-multiline": "error",
+    "curly": ["error", "multi-line"],
+    "no-caller": "error",
+    "no-extend-native": "error",
+    "no-extra-bind": "error",
+    "no-invalid-this": "error",
+    "no-multi-spaces": "error",
+    "no-multi-str": "error",
+    "no-new-wrappers": "error",
+    "no-throw-literal": "error",
+    "no-with": "error",
+    "prefer-promise-reject-errors": "error",
+    "array-bracket-newline": "off",
+    "array-bracket-spacing": ["error", "never"],
+    "array-element-newline": "off",
+    "block-spacing": ["error", "never"],
+    "brace-style": "error",
+    "comma-dangle": "off",
+    "comma-spacing": "error",
+    "comma-style": "error",
+    "computed-property-spacing": "error",
+    "eol-last": "error",
+    "func-call-spacing": "error",
+    "key-spacing": "error",
+    "keyword-spacing": "error",
+    "linebreak-style": "off",
+    "max-len": "off",
+    "new-cap": "off",
+    "no-array-constructor": "error",
+    "no-mixed-spaces-and-tabs": "error",
+    "no-multiple-empty-lines": ["error", { "max": 2 }],
+    "no-new-object": "error",
+    "no-tabs": "error",
+    "no-trailing-spaces": "error",
+    "object-curly-spacing": "off",
+    "one-var": [
+      "error",
+      {
+        "var": "never",
+        "let": "never",
+        "const": "never"
+      }
+    ],
+    "padded-blocks": ["error", "never"],
+    "quote-props": "off",
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "require-jsdoc": "off",
+    "semi": "off",
+    "semi-spacing": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": [
+      "error",
+      {
+        "asyncArrow": "always",
+        "anonymous": "never",
+        "named": "never"
+      }
+    ],
+    "spaced-comment": ["error", "always"],
+    "switch-colon-spacing": "error",
+    "arrow-parens": ["error", "always"],
+    "constructor-super": "error",
+    "generator-star-spacing": ["error", "after"],
+    "no-new-symbol": "error",
+    "no-this-before-super": "error",
+    "no-var": "error",
+    "prefer-const": ["error", { "destructuring": "all" }],
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "rest-spread-spacing": "error",
+    "yield-star-spacing": ["error", "after"],
+    "operator-linebreak": "off",
+    "react/jsx-sort-props": "warn",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "camelcase": "off",
+    "no-empty-pattern": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": "off",
+    "no-case-declarations": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "no-unused-vars": "off",
+    "guard-for-in": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "import/no-anonymous-default-export": "off"
+  },
+  "globals": {
+    "process": true,
+    "module": true,
+    "require": true
+  },
+  "ignorePatterns": [
+    "node_modules",
+    ".next",
+    "build",
+    "dist",
+    "out",
+    ".env*.local",
+    "pnpm-lock.yaml",
+    "package-lock.json",
+    "yarn.lock"
+  ]
+}

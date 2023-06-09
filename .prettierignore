@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# Ignore files for PNPM, NPM and YARN
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# next.js
+.next
+
+# commit validation
+.husky/_
+
+# production
+build
+dist
+out
+
+# local env files
+.env*.local

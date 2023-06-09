@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./components/*"],
+
+      "@prismaClient": ["./prisma/client.ts"],
+      "@nextAuth": ["./pages/api/auth/[...nextauth].ts"],
+
+      "@utils/*": ["./utils/*"],
+      "@providers/*": ["./providers/*"],
+      "@hooks": ["./hooks"],
+      "@hooks/zustand": ["./hooks/zustand"],
+
+      "@types": ["./@types.ts"],
+
+      "@styles/*": ["./styles/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
