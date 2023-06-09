@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./components/*"],
+      "@common": ["./app/_common"],
 
       "@prismaClient": ["./prisma/client.ts"],
       "@nextAuth": ["./pages/api/auth/[...nextauth].ts"],
@@ -26,8 +27,10 @@
       "@providers/*": ["./providers/*"],
       "@hooks": ["./hooks"],
       "@hooks/zustand": ["./hooks/zustand"],
+      "@context": ["./context"],
 
       "@types": ["./@types.ts"],
+      "db_types": ["./@db_types.ts"],
 
       "@styles/*": ["./styles/*"]
     }

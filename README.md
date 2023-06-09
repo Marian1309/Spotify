@@ -5,7 +5,7 @@
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/Marian1309/Nextjs
+git clone https://github.com/Marian1309/Spotify
 ```
 
 ### Install packages
