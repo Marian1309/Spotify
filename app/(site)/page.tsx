@@ -6,6 +6,8 @@ import { getSongs } from '@actions'
 
 import { PageContent } from './components'
 
+export const revalidate = 0
+
 const Home = async () => {
   const songs = await getSongs()
 

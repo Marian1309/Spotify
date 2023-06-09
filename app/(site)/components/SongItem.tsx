@@ -34,7 +34,7 @@ const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
         <p className='text-neutral-400 text-sm pb-4 w-full truncate'>By {data.author}</p>
       </div>
 
-      <div className='absolute bottom-24 right-5'>
+      <div className='absolute bottom-24 right-5 hover:block'>
         <PlayButton />
       </div>
     </div>

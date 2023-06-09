@@ -10,7 +10,7 @@ import type { Song } from '@types'
 import { useUser } from '@hooks'
 import { useAuthModal, useUploadModal } from '@hooks/zustand'
 
-import MediaItem from './MediaItem'
+import MediaItem from '../MediaItem'
 
 interface LibraryProps {
   songs: Song[]
