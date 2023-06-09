@@ -17,8 +17,8 @@
     "plugins": [{ "name": "next" }],
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./components/*"],
       "@common": ["./app/_common"],
+      "@common/*": ["./app/_common/*"],
 
       "@prismaClient": ["./prisma/client.ts"],
       "@nextAuth": ["./pages/api/auth/[...nextauth].ts"],

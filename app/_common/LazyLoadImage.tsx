@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC, HTMLAttributes } from 'react'
 
 import { LazyLoadImage } from 'react-lazy-load-image-component'

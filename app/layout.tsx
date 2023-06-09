@@ -1,9 +1,14 @@
-import type { FC, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
 
-import GlobalProvider from '@providers/GlobalProvider'
+import { Sidebar } from '@common'
+
+import ModalProvider from '@providers/_modal'
+import UserProvider from '@providers/_user'
+import HotToastProvider from '@providers/react-hot-toast'
+import SupabaseProvider from '@providers/supabase'
 
 import { ICONS } from '@utils/constants'
 
@@ -18,11 +23,20 @@ export const metadata: Metadata = {
   authors: [{ name: 'Marian', url: 'https://github.com/Marian1309' }]
 }
 
-const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
+export const revalidate = 0
+
+const RootLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <html lang='en'>
       <body className={figTree.className}>
-        <GlobalProvider>{children}</GlobalProvider>
+        <HotToastProvider />
+
+        <SupabaseProvider>
+          <UserProvider>
+            <ModalProvider />
+            <Sidebar>{children}</Sidebar>
+          </UserProvider>
+        </SupabaseProvider>
       </body>
     </html>
   )

@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC } from 'react'
 
 import { Toaster } from 'react-hot-toast'
