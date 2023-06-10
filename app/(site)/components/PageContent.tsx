@@ -26,7 +26,8 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
   return (
     <div
       className={clsx(
-        'grid grid-cols-2 sm:grid-cols-3 sm:max-h-[78.6vh]  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-4',
+        `grid grid-cols-2 sm:grid-cols-3 sm:max-h-[78.6vh] md:grid-cols-3 lg:grid-cols-4
+        first-letter:xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6`,
         activeId && 'max-h-[71.1vh]'
       )}
     >
