@@ -20,6 +20,11 @@ body {
 * {
   margin: 0;
   padding: 0;
+  &:active {
+    user-select: none;
+  }
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 *,

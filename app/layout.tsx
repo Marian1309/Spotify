@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
 
-import { Player, Sidebar } from '@common'
+import clsx from 'clsx'
 
 import ModalProvider from '@providers/_modal'
 import UserProvider from '@providers/_user'
@@ -13,6 +13,8 @@ import SupabaseProvider from '@providers/supabase'
 import { ICONS } from '@utils/constants'
 
 import { getSongsById } from '@actions'
+
+import { Player, Sidebar } from '@common'
 
 import '@styles/globals.scss'
 
@@ -24,12 +26,13 @@ export const metadata: Metadata = {
   icons: { icon: ICONS.favicon },
   authors: [{ name: 'Marian', url: 'https://github.com/Marian1309' }]
 }
+
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   const userSongs = await getSongsById()
 
   return (
     <html lang='en'>
-      <body className={figTree.className}>
+      <body className={clsx(figTree.className, 'select-none')}>
         <HotToastProvider />
 
         <SupabaseProvider>

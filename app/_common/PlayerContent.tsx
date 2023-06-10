@@ -119,10 +119,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
 
         <div
           className='flex-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer'
-          onClick={(e) => {
-            e.preventDefault()
-            pause()
-          }}
+          onClick={() => pause()}
         >
           <Icon className='text-black' size={30} />
         </div>

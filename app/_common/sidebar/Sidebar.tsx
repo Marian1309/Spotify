@@ -34,15 +34,17 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
     [pathname]
   ) satisfies Route[]
 
-  const handleContextMenu = (e: MouseEvent) => {
+  const handleContextMenu = (e: any) => {
     e.preventDefault()
   }
 
   useEffect(() => {
-    document.addEventListener('contextmenu', handleContextMenu)
-
-    return () => {
-      document.removeEventListener('contextmenu', handleContextMenu)
+    if (window.innerWidth < 800) {
+      document.addEventListener('contextmenu', (e) => handleContextMenu(e))
+    } else {
+      return () => {
+        document.removeEventListener('contextmenu', (e) => handleContextMenu(e))
+      }
     }
   }, [pathname])
 
