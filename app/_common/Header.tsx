@@ -3,6 +3,7 @@
 import type { FC, ReactNode } from 'react'
 import { Fragment } from 'react'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -58,18 +59,22 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
     { icon: RxCaretRight, onClick: forward }
   ] satisfies Arrow[]
 
-  const mobileIcons = [{ icon: HiHome }, { icon: BiSearch }] satisfies {
+  const mobileIcons = [
+    { icon: HiHome, href: '/' },
+    { icon: BiSearch, href: '/search' }
+  ] satisfies {
     icon: IconType
+    href: string
   }[]
 
   const headerActions = {
     login: [
       {
-        className: 'bg-transparent text-neutral-300 font-medium whitespace-nowrap',
+        className: 'bg-transparent text-white font-medium whitespace-nowrap',
         onClick: authModal.onOpen,
         title: 'Sign Up'
       },
-      { className: 'bg-white px-6 py-2', onClick: authModal.onOpen, title: 'Log In' }
+      { className: 'bg-white px-6 py-[6px]', onClick: authModal.onOpen, title: 'Log In' }
     ],
     logged: [
       {
@@ -101,13 +106,14 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         </div>
 
         <div className='flex-center md:hidden gap-x-2'>
-          {mobileIcons.map(({ icon: Icon }, index: number) => (
-            <button
-              className='p-2 rounded-full bg-white flex-center hover:opacity-75 transition'
+          {mobileIcons.map(({ icon: Icon, href }, index: number) => (
+            <Link
+              className='p-3 rounded-full bg-white flex-center hover:opacity-75 transition'
+              href={href}
               key={index}
             >
-              <Icon />
-            </button>
+              <Icon size={20} />
+            </Link>
           ))}
         </div>
 

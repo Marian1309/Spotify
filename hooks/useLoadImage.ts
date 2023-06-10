@@ -1,5 +1,3 @@
-'use client'
-
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import type { Song } from '@types'

@@ -12,11 +12,11 @@ import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
+import { z } from 'zod'
 
 import type { UploadSchema } from '@types'
 
 import { getPath } from '@utils/helpers'
-import { songSchema } from '@utils/schemas'
 
 import { useUser } from '@hooks'
 import { useUploadModal, useUploadPreview } from '@hooks/zustand'
@@ -36,6 +36,11 @@ const UploadModal: FC = () => {
     useUploadPreview()
   const { user } = useUser()
 
+  // const songSchema = z.object({
+  //   author: z.string().min(3, { message: 'Author must be at least 3 characters' }),
+  //   title: z.string().min(6, { message: 'Title must be at least 6 characters' })
+  // })
+
   const {
     register,
     handleSubmit,
@@ -47,8 +52,7 @@ const UploadModal: FC = () => {
       title: '',
       song: null,
       image: null
-    },
-    resolver: zodResolver(songSchema)
+    }
   })
 
   const onChange = (open: boolean) => {
@@ -64,6 +68,8 @@ const UploadModal: FC = () => {
 
       const imageFile = values.image[0]
       const songFile = values.song[0]
+
+      console.log(values)
 
       if (!imageFile || !songFile || !user) {
         return toast.error('Missing fields')
@@ -110,6 +116,8 @@ const UploadModal: FC = () => {
       refresh()
       toast.success('Song created!')
       reset()
+      setPreviewAudio('')
+      setPreviewImage('')
       uploadModal.onClose()
     } catch (err: unknown) {
       toast.error('Something went wrong')
@@ -186,7 +194,7 @@ const UploadModal: FC = () => {
             disabled={isLoading}
             id='image'
             type='file'
-            {...register('image')}
+            {...register('image', { required: 'Image' })}
             onChange={(e) => setPreviewImage(getPath(e))}
             placeholder='Song author'
           />

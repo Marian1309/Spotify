@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
 
-import { Sidebar } from '@common'
+import { Player, Sidebar } from '@common'
 
 import ModalProvider from '@providers/_modal'
 import UserProvider from '@providers/_user'
@@ -25,9 +25,6 @@ export const metadata: Metadata = {
   icons: { icon: ICONS.favicon },
   authors: [{ name: 'Marian', url: 'https://github.com/Marian1309' }]
 }
-
-export const revalidate = 3600
-
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   const userSongs = await getSongsById()
 
@@ -41,6 +38,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
             <UserProvider>
               <ModalProvider />
               <Sidebar songs={userSongs}>{children}</Sidebar>
+              <Player />
             </UserProvider>
           </SupabaseProvider>
         </TanstackReactQueryProvider>

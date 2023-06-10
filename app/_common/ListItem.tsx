@@ -38,7 +38,7 @@ const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
         />
       </div>
 
-      <p>{name}</p>
+      <p className='text-white text-lg'>{name}</p>
 
       <div
         className='absolute transition opacity-0 rounded-full flex-center

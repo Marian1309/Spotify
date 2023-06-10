@@ -1,14 +1,17 @@
 'use client'
 
 import type { FC, ReactNode } from 'react'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { usePathname } from 'next/navigation'
 
+import clsx from 'clsx'
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 
 import type { Route, Song } from '@types'
+
+import { usePlayer } from '@hooks/zustand'
 
 import Box from './Box'
 import Library from './Library'
@@ -21,6 +24,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
   const pathname = usePathname()
+  const player = usePlayer()
 
   const routes = useMemo(
     () => [
@@ -30,8 +34,18 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
     [pathname]
   ) satisfies Route[]
 
+  const handleContextMenu = (e: MouseEvent) => e.preventDefault()
+
+  useEffect(() => {
+    document.addEventListener('contextmenu', handleContextMenu)
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu)
+    }
+  }, [pathname])
+
   return (
-    <div className='flex h-full'>
+    <div className={clsx('flex h-full', player.activeId && 'h-[calc(100%-80px)]')}>
       <div className='hidden h-full w-[300px] flex-col gap-y-2 bg-black p-2 md:flex'>
         <Box>
           <div className='flex flex-col gap-y-4 px-5 py-4'>
