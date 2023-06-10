@@ -34,7 +34,9 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
     [pathname]
   ) satisfies Route[]
 
-  const handleContextMenu = (e: MouseEvent) => e.preventDefault()
+  const handleContextMenu = (e: MouseEvent) => {
+    e.preventDefault()
+  }
 
   useEffect(() => {
     document.addEventListener('contextmenu', handleContextMenu)
@@ -45,8 +47,8 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
   }, [pathname])
 
   return (
-    <div className={clsx('flex h-full', player.activeId && 'h-[calc(100%-80px)]')}>
-      <div className='hidden h-full w-[300px] flex-col gap-y-2 bg-black p-2 md:flex'>
+    <div className={clsx('flex h-full', player.activeId && 'h-[calc(100vh-80px)]')}>
+      <div className='hidden h-full w-[300px] flex-col gap-y-2 p-2 md:flex'>
         <Box>
           <div className='flex flex-col gap-y-4 px-5 py-4'>
             {routes.map((route) => (
@@ -60,7 +62,7 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
         </Box>
       </div>
 
-      <main className='h-full flex-1 overflow-y-auto py-2'>{children}</main>
+      <main className='h-full flex-1 overflow-y-auto md:py-2 sm:py-0'>{children}</main>
     </div>
   )
 }

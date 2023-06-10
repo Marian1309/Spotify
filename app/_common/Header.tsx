@@ -96,7 +96,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         <div className='hidden md:flex gap-x-2 items-center'>
           {arrows.map(({ icon: Icon, onClick }, index: number) => (
             <button
-              className='rounded-full bg-black flex-center hover:opacity-75 transition'
+              className='rounded-full bg-black flex-center hover:opacity-75 transition-opacity'
               key={index}
               onClick={onClick}
             >
@@ -108,7 +108,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         <div className='flex-center md:hidden gap-x-2'>
           {mobileIcons.map(({ icon: Icon, href }, index: number) => (
             <Link
-              className='p-3 rounded-full bg-white flex-center hover:opacity-75 transition'
+              className='p-3 rounded-full bg-white flex-center hover:opacity-75 transition-opacity'
               href={href}
               key={index}
             >

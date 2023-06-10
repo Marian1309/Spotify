@@ -1,8 +1,8 @@
-import { Header, ListItem } from '@common'
-
 import { ICONS } from '@utils/constants'
 
 import { getSongs } from '@actions'
+
+import { Header, ListItem } from '@common'
 
 import { PageContent } from './components'
 
@@ -12,7 +12,10 @@ const Home = async () => {
   const songs = await getSongs()
 
   return (
-    <div className='text-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto'>
+    <div
+      className='text-neutral-900 bg-neutral-900 sm:rounded-none md:rounded-lg
+      h-full w-full overflow-hidden overflow-y-auto'
+    >
       <Header>
         <div className='mb-2'>
           <h1 className='text-white text-3xl font-semibold'>Welcome Back</h1>

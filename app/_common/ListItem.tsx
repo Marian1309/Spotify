@@ -17,7 +17,6 @@ const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
   const router = useRouter()
 
   const onClick = () => {
-    // Add Auth before push
     router.push(href)
   }
 
@@ -42,9 +41,9 @@ const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
 
       <div
         className='absolute transition opacity-0 rounded-full flex-center
-        drop-shadow-md bg-green-500 p-4 right-5 group-hover:opacity-100 hover:scale-110'
+        drop-shadow-md bg-green-500 p-4 right-3 group-hover:opacity-100 hover:scale-110'
       >
-        <FaPlay className='text-black' />
+        <FaPlay className='text-black relative left-[2px]' />
       </div>
     </button>
   )

@@ -9,7 +9,6 @@ import ModalProvider from '@providers/_modal'
 import UserProvider from '@providers/_user'
 import HotToastProvider from '@providers/react-hot-toast'
 import SupabaseProvider from '@providers/supabase'
-import TanstackReactQueryProvider from '@providers/tanstack-query'
 
 import { ICONS } from '@utils/constants'
 
@@ -33,15 +32,13 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       <body className={figTree.className}>
         <HotToastProvider />
 
-        <TanstackReactQueryProvider>
-          <SupabaseProvider>
-            <UserProvider>
-              <ModalProvider />
-              <Sidebar songs={userSongs}>{children}</Sidebar>
-              <Player />
-            </UserProvider>
-          </SupabaseProvider>
-        </TanstackReactQueryProvider>
+        <SupabaseProvider>
+          <UserProvider>
+            <ModalProvider />
+            <Sidebar songs={userSongs}>{children}</Sidebar>
+            <Player />
+          </UserProvider>
+        </SupabaseProvider>
       </body>
     </html>
   )

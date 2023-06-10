@@ -2,6 +2,7 @@
 
 import type { FC } from 'react'
 
+import { toast } from 'react-hot-toast'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { TbPlaylist } from 'react-icons/tb'
 
@@ -24,22 +25,23 @@ const Library: FC<LibraryProps> = ({ songs }) => {
 
   const onClick = () => {
     if (!user) {
+      toast.error('You need to sign in in order to add a song to your library')
       return authModal.onOpen()
     }
 
-    return uploadModal.onOpen()
+    uploadModal.onOpen()
   }
 
   return (
     <div className='flex flex-col'>
-      <div className='flex items-center justify-between px-5 pt-4'>
+      <div className='flex-between px-5 pt-4'>
         <div className='inline-flex items-center gap-x-2'>
           <TbPlaylist className='text-neutral-400' size={26} />
           <p className='text-neutral-400 font-medium text-md'>Your Library</p>
         </div>
 
         <AiOutlinePlus
-          className='text-neutral-400 cursor-pointer hover:text-white transition'
+          className='text-neutral-400 cursor-pointer hover:text-white transition-colors'
           onClick={onClick}
           size={20}
         />

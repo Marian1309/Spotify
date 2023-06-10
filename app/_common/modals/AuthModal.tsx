@@ -12,7 +12,7 @@ import { toast } from 'react-hot-toast'
 
 import { useAuthModal } from '@hooks/zustand'
 
-import Modal from './Modal'
+import { Modal } from '@common/radix-ui'
 
 const AuthModal: FC = () => {
   const supabaseClient = useSupabaseClient()
@@ -57,6 +57,7 @@ const AuthModal: FC = () => {
         }}
         magicLink
         providers={['github', 'google']}
+        socialLayout='vertical'
         supabaseClient={supabaseClient}
         theme='dark'
         view='sign_in'

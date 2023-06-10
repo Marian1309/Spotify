@@ -1,8 +1,10 @@
-import { Header, LazyLoadImage } from '@common'
+import Image from 'next/image'
 
 import { ICONS } from '@utils/constants'
 
 import { getLikedSongs } from '@actions'
+
+import { Header } from '@common'
 
 import { LikedContent } from './components'
 
@@ -17,7 +19,7 @@ const Liked = async () => {
         <div className='mt-20'>
           <div className='flex flex-col md:flex-row items-center gap-x-5'>
             <div className='relative h-32 w-32 lg:h-44 lg:w-44'>
-              <LazyLoadImage alt='playlist' className='object-cover' src={ICONS.liked} />
+              <Image alt='liked' className='object-cover' fill src={ICONS.liked} />
             </div>
 
             <div className='flex flex-col gap-y-2 mt-4 md:mt-0'>

@@ -8,9 +8,11 @@ import { useRouter } from 'next/navigation'
 import { LazyLoadImage } from '@common'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import axios from 'axios'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
+import * as Tone from 'tone'
 import uniqid from 'uniqid'
 import { z } from 'zod'
 
@@ -23,8 +25,7 @@ import { useUploadModal, useUploadPreview } from '@hooks/zustand'
 
 import Button from '../Button'
 import Input from '../Input'
-
-import Modal from './Modal'
+import Modal from '../radix-ui/Modal'
 
 const UploadModal: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -68,8 +69,6 @@ const UploadModal: FC = () => {
 
       const imageFile = values.image[0]
       const songFile = values.song[0]
-
-      console.log(values)
 
       if (!imageFile || !songFile || !user) {
         return toast.error('Missing fields')
@@ -137,7 +136,7 @@ const UploadModal: FC = () => {
         <Input
           disabled={isLoading}
           id='title'
-          {...register('title')}
+          {...register('title', { required: 'Title must be at least 3 characters' })}
           placeholder='Song title'
         />
         {errors.title && (
@@ -149,7 +148,7 @@ const UploadModal: FC = () => {
         <Input
           disabled={isLoading}
           id='author'
-          {...register('author')}
+          {...register('author', { required: 'Author must be at least 3 characters' })}
           placeholder='Song author'
         />
         {errors.author && (
@@ -167,7 +166,9 @@ const UploadModal: FC = () => {
             id='song'
             type='file'
             {...register('song')}
-            onChange={(e) => setPreviewAudio(getPath(e))}
+            onChange={(e) => {
+              setPreviewAudio(getPath(e))
+            }}
             placeholder='Song author'
           />
           {errors.song && (

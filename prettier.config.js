@@ -22,7 +22,7 @@ const baseRules = {
     '^@providers',
     '^@utils',
     '^@hooks|^@actions',
-    '^@components',
+    '^@common',
     '^@styles',
     '^../(.*)$',
     '^./(.*)$'

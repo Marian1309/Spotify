@@ -2,14 +2,14 @@
 
 import type { FC } from 'react'
 
-import { LazyLoadImage } from '@common'
-import { PlayButton } from '@common/icons'
-
 import type { Song } from '@types'
 
 import { ICONS } from '@utils/constants'
 
 import { useLoadImage } from '@hooks'
+
+import { LazyLoadImage } from '@common'
+import { PlayButton } from '@common/icons'
 
 interface SongItemProps {
   onClick: (id: string) => void
@@ -22,7 +22,7 @@ const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
   return (
     <div
       className='relative group flex-center flex-col rounded-md overflow-hidden
-      gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3'
+      gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition-colors p-3'
       onClick={() => onClick(data.id)}
     >
       <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>

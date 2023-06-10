@@ -1,4 +1,4 @@
-@import './customs.scss';
+@import './classes.scss';
 
 @tailwind base;
 @tailwind components;
@@ -14,7 +14,7 @@ body {
   scroll-behavior: smooth;
   text-rendering: optimizespeed;
   color: white;
-  background-color: #212121;
+  background-color: black;
 }
 
 * {

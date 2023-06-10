@@ -1,4 +1,4 @@
-import type { FC} from 'react';
+import type { FC } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
@@ -13,7 +13,7 @@ import { usePlayer } from '@hooks/zustand'
 
 import LikeButton from './LikeButton'
 import MediaItem from './MediaItem'
-import Slider from './Slider'
+import Slider from './radix-ui/Slider'
 
 interface PlayerContentProps {
   song: Song
@@ -119,7 +119,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
 
         <div
           className='flex-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer'
-          onClick={() => {}}
+          onClick={() => pause()}
         >
           <Icon className='text-black' size={30} />
         </div>
