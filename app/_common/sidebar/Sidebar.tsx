@@ -50,7 +50,7 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
 
   return (
     <div className={clsx('flex h-full', player.activeId && 'h-[calc(100vh-80px)]')}>
-      <div className='hidden h-full w-[300px] flex-col gap-y-2 p-2 md:flex'>
+      <div className='hidden h-full w-[300px] flex-col gap-y-[8.3px] p-2 md:flex'>
         <Box>
           <div className='flex flex-col gap-y-4 px-5 py-4'>
             {routes.map((route) => (

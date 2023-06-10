@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -11,9 +13,8 @@ import type { Song } from '@types'
 
 import { usePlayer } from '@hooks/zustand'
 
-import LikeButton from './LikeButton'
-import MediaItem from './MediaItem'
-import Slider from './radix-ui/Slider'
+import { LikeButton, MediaItem } from '@common'
+import { Slider } from '@common/radix-ui'
 
 interface PlayerContentProps {
   song: Song
@@ -43,7 +44,11 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
   }, [sound])
 
-  const Icon = isPlaying ? BsPauseFill : BsPlayFill
+  const icon = isPlaying ? (
+    <BsPauseFill className='text-black' size={30} />
+  ) : (
+    <BsPlayFill className='text-black relative pl-[2px]' size={30} />
+  )
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
   const onPlayNext = () => {
@@ -105,7 +110,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
             className='h-10 w-10 flex-center rounded-full bg-white p-1 cursor-pointer'
             onClick={handlePlay}
           >
-            <Icon className='text-black' size={30} />
+            {icon}
           </div>
         </div>
       </div>
@@ -118,10 +123,10 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
         />
 
         <div
-          className='flex-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer'
+          className='flex-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer relative'
           onClick={() => pause()}
         >
-          <Icon className='text-black' size={30} />
+          {icon}
         </div>
 
         <AiFillStepForward

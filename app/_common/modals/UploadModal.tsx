@@ -5,27 +5,19 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { LazyLoadImage } from '@common'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import axios from 'axios'
-import type { SubmitHandler } from 'react-hook-form'
+import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import * as Tone from 'tone'
 import uniqid from 'uniqid'
-import { z } from 'zod'
-
-import type { UploadSchema } from '@types'
 
 import { getPath } from '@utils/helpers'
 
 import { useUser } from '@hooks'
 import { useUploadModal, useUploadPreview } from '@hooks/zustand'
 
-import Button from '../Button'
-import Input from '../Input'
-import Modal from '../radix-ui/Modal'
+import { Button, Input, LazyLoadImage } from '@common'
+import { Modal } from '@common/radix-ui'
 
 const UploadModal: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -37,17 +29,12 @@ const UploadModal: FC = () => {
     useUploadPreview()
   const { user } = useUser()
 
-  // const songSchema = z.object({
-  //   author: z.string().min(3, { message: 'Author must be at least 3 characters' }),
-  //   title: z.string().min(6, { message: 'Title must be at least 6 characters' })
-  // })
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<UploadSchema>({
+  } = useForm<FieldValues>({
     defaultValues: {
       author: '',
       title: '',
@@ -63,7 +50,7 @@ const UploadModal: FC = () => {
     }
   }
 
-  const onSubmit: SubmitHandler<UploadSchema> = async (values) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
       setIsLoading(true)
 

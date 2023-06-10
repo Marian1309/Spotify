@@ -2,9 +2,9 @@ import { ICONS } from '@utils/constants'
 
 import { getSongs } from '@actions'
 
-import { Header, ListItem } from '@common'
+import { Header } from '@common'
 
-import { PageContent } from './components'
+import { ListItem, PageContent } from './components'
 
 export const revalidate = 0
 

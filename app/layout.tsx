@@ -14,7 +14,8 @@ import { ICONS } from '@utils/constants'
 
 import { getSongsById } from '@actions'
 
-import { Player, Sidebar } from '@common'
+import { Sidebar } from '@common'
+import { Player } from '@common/player'
 
 import '@styles/globals.scss'
 
