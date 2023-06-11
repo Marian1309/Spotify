@@ -2,14 +2,11 @@
 
 import type { FC } from 'react'
 
-import clsx from 'clsx'
-
 import type { Song } from '@types'
 
 import { ICONS } from '@utils/constants'
 
 import { useLoadImage } from '@hooks'
-import { usePlayer } from '@hooks/zustand'
 
 import { LazyLoadImage } from '@common'
 import { PlayButton } from '@common/icons'

@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { toast } from 'react-hot-toast'
 
 import { useAuthModal } from '@hooks/zustand'
 
@@ -22,6 +21,7 @@ const AuthModal: FC = () => {
 
   useEffect(() => {
     if (session) {
+      router.refresh()
       onClose()
     }
   }, [session, router, onClose])
@@ -29,10 +29,6 @@ const AuthModal: FC = () => {
   const onChange = (open: boolean) => {
     if (!open) {
       onClose()
-    }
-
-    if (session) {
-      toast.success('You are logged in 🔥')
     }
   }
 

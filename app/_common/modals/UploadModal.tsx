@@ -1,17 +1,21 @@
 'use client'
 
-import type { FC } from 'react'
+import type { ChangeEvent, FC } from 'react'
 import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import type { FieldValues, SubmitHandler } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
-import { getPath } from '@utils/helpers'
+import type { SongUploadSchema } from '@types'
+
+import { getImageDimensions, getPath } from '@utils/helpers'
+import { songUploadSchema } from '@utils/schemas'
 
 import { useUser } from '@hooks'
 import { useUploadModal, useUploadPreview } from '@hooks/zustand'
@@ -19,38 +23,42 @@ import { useUploadModal, useUploadPreview } from '@hooks/zustand'
 import { Button, Input, LazyLoadImage } from '@common'
 import { Modal } from '@common/radix-ui'
 
+type ChangeFn = (e: ChangeEvent<HTMLInputElement>) => void
+
 const UploadModal: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { refresh } = useRouter()
   const supabaseClient = useSupabaseClient()
-
   const uploadModal = useUploadModal()
   const { previewImage, previewAudio, setPreviewImage, setPreviewAudio } =
     useUploadPreview()
   const { user } = useUser()
-
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
-  } = useForm<FieldValues>({
+    formState: { errors },
+    resetField
+  } = useForm<SongUploadSchema>({
     defaultValues: {
       author: '',
       title: '',
       song: null,
       image: null
-    }
+    },
+    resolver: zodResolver(songUploadSchema)
   })
 
-  const onChange = (open: boolean) => {
+  const onModalChange = (open: boolean) => {
     if (!open) {
       reset()
+      setPreviewAudio('')
+      setPreviewImage('')
       uploadModal.onClose()
     }
   }
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit: SubmitHandler<SongUploadSchema> = async (values) => {
     try {
       setIsLoading(true)
 
@@ -99,31 +107,60 @@ const UploadModal: FC = () => {
         return toast.error(supabaseError.message)
       }
 
-      refresh()
-      toast.success('Song created!')
+      toast.success('Song uploaded!')
       reset()
       setPreviewAudio('')
       setPreviewImage('')
       uploadModal.onClose()
+      refresh()
     } catch (err: unknown) {
       toast.error('Something went wrong')
     } finally {
+      refresh()
       setIsLoading(false)
     }
+  }
+
+  const onSongChange: ChangeFn = (e) => {
+    setPreviewAudio('')
+    setTimeout(() => {
+      const file = e.target.files?.[0] as File
+      setPreviewAudio(getPath(file))
+    }, 0)
+  }
+
+  const onImageChange: ChangeFn = (e) => {
+    const file = e.target.files?.[0] as File
+
+    getImageDimensions(
+      file,
+      (err: Error, dimensions: { width: number; height: number }) => {
+        if (err) {
+          return toast.error(err.message)
+        }
+
+        if (dimensions.width !== dimensions.height) {
+          resetField('image')
+          return toast.error('You must to upload a square image')
+        } else {
+          setPreviewImage(getPath(file))
+        }
+      }
+    )
   }
 
   return (
     <Modal
       description=''
       isOpen={uploadModal.isOpen}
-      onChange={onChange}
+      onChange={onModalChange}
       title='Add a song'
     >
       <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
         <Input
           disabled={isLoading}
           id='title'
-          {...register('title', { required: 'Title must be at least 3 characters' })}
+          {...register('title')}
           placeholder='Song title'
         />
         {errors.title && (
@@ -135,7 +172,7 @@ const UploadModal: FC = () => {
         <Input
           disabled={isLoading}
           id='author'
-          {...register('author', { required: 'Author must be at least 3 characters' })}
+          {...register('author')}
           placeholder='Song author'
         />
         {errors.author && (
@@ -153,10 +190,8 @@ const UploadModal: FC = () => {
             id='song'
             type='file'
             {...register('song')}
-            onChange={(e) => {
-              setPreviewAudio(getPath(e))
-            }}
-            placeholder='Song author'
+            onChange={onSongChange}
+            placeholder='Song'
           />
           {errors.song && (
             <p className='text-md italic text-red-500 mt-2'>
@@ -182,9 +217,9 @@ const UploadModal: FC = () => {
             disabled={isLoading}
             id='image'
             type='file'
-            {...register('image', { required: 'Image' })}
-            onChange={(e) => setPreviewImage(getPath(e))}
-            placeholder='Song author'
+            {...register('image')}
+            onChange={onImageChange}
+            placeholder='Song image'
           />
           {errors.image && (
             <p className='text-md italic text-red-500 mt-2'>
@@ -196,11 +231,11 @@ const UploadModal: FC = () => {
         {previewImage && (
           <>
             <h3>Image preview</h3>
-            <LazyLoadImage alt='preview' src={previewImage} />
+            <LazyLoadImage alt='preview' height={200} src={previewImage} width={200} />
           </>
         )}
 
-        <Button disabled={isLoading} type='submit'>
+        <Button className='mt-2' disabled={isLoading} type='submit'>
           Create
         </Button>
       </form>

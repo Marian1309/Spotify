@@ -3,8 +3,6 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
 
-import clsx from 'clsx'
-
 import ModalProvider from '@providers/_modal'
 import UserProvider from '@providers/_user'
 import HotToastProvider from '@providers/react-hot-toast'
@@ -28,12 +26,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'Marian', url: 'https://github.com/Marian1309' }]
 }
 
+export const revalidate = 0
+
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   const userSongs = await getSongsById()
 
   return (
     <html lang='en'>
-      <body className={clsx(figTree.className, 'select-none')}>
+      <body className={figTree.className}>
         <HotToastProvider />
 
         <SupabaseProvider>

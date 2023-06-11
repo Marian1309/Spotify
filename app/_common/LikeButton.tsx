@@ -3,6 +3,8 @@
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
@@ -16,7 +18,7 @@ interface LikeButtonProps {
 
 const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
   const { supabaseClient } = useSessionContext()
-
+  const { refresh } = useRouter()
   const authModal = useAuthModal()
   const { user } = useUser()
   const [isLiked, setIsLiked] = useState<boolean>(false)
@@ -48,6 +50,7 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
 
   const handleClick = async () => {
     if (!user) {
+      toast.error('You are not signed in')
       return authModal.onOpen()
     }
 
@@ -76,6 +79,8 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
         toastId = toast.success('Liked!')
       }
     }
+
+    refresh()
   }
 
   return (

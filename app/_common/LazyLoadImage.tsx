@@ -2,7 +2,6 @@
 
 import type { FC, HTMLAttributes } from 'react'
 
-import clsx from 'clsx'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
@@ -21,7 +20,7 @@ const LazyLoadImg: FC<LazyLoadImageProps> = (
   return (
     <LazyLoadImage
       alt={alt}
-      className={clsx('bg-center', className)}
+      className={className}
       effect='blur'
       height={height}
       src={src}

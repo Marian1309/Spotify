@@ -21,7 +21,7 @@ const Liked = async () => {
             </div>
 
             <div className='flex flex-col gap-y-2 mt-4 md:mt-0'>
-              <p className='hidden md:block font-semibold text-sm'>Playlist</p>
+              <p className='hidden md:block font-semibold lg:text-xl text-sm'>Playlist</p>
               <h1 className='text-white text-4xl sm:text-5xl lg:text-7xl font-bold'>
                 Liked Songs
               </h1>
@@ -30,7 +30,9 @@ const Liked = async () => {
         </div>
       </Header>
 
-      <LikedContent songs={songs} />
+      <div className='md:h-[calc(100vh-282px)] lg:h-[calc(100vh-323.5px)] overflow-y-auto'>
+        <LikedContent songs={songs} />
+      </div>
     </div>
   )
 }

@@ -49,8 +49,6 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
 
     if (error) {
       toast.error(error.message)
-    } else {
-      console.log('Exit')
     }
   }
 

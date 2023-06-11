@@ -17,7 +17,7 @@ interface PageContentProps {
 const PageContent: FC<PageContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs)
 
-  if (songs?.length === 0) {
+  if (songs.length === 0) {
     return <div className='mt-4 text-neutral-400 text-xl'>No songs available.</div>
   }
 
@@ -25,11 +25,10 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
     <div
       className={clsx(
         `grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4
-        xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6
-        overflow-y-auto sm:md:lg:max-h-[calc(100vh-310px)] xl:2xl:h-full`
+        xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6 overflow-y-auto`
       )}
     >
-      {songs?.map((song) => (
+      {songs.map((song) => (
         <SongItem data={song} key={song.id} onClick={(id: string) => onPlay(id)} />
       ))}
     </div>

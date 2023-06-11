@@ -40,10 +40,10 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
 
   useEffect(() => {
     if (window.innerWidth < 800) {
-      document.addEventListener('contextmenu', (e) => handleContextMenu(e))
+      document.addEventListener('contextmenu', handleContextMenu)
     } else {
       return () => {
-        document.removeEventListener('contextmenu', (e) => handleContextMenu(e))
+        document.removeEventListener('contextmenu', handleContextMenu)
       }
     }
   }, [pathname])

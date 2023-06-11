@@ -18,7 +18,7 @@ const Slider: FC<SliderProps> = ({ value = 1, onChange }) => {
     <RadixSlider.Root
       aria-label='Volume'
       className='relative flex items-center select-none touch-none w-full h-10'
-      defaultValue={[1]}
+      defaultValue={[0.5]}
       max={1}
       onValueChange={handleChange}
       step={0.1}

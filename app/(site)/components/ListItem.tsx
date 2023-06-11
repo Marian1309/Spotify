@@ -2,11 +2,10 @@
 
 import type { FC } from 'react'
 
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { FaPlay } from 'react-icons/fa'
-
-import { LazyLoadImage } from '@common'
 
 interface ListItemProps {
   image: string
@@ -24,13 +23,7 @@ const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
       onClick={() => push(href)}
     >
       <div className='relative max-h-[64px] max-w-[64px]'>
-        <LazyLoadImage
-          alt={name}
-          className='object-cover'
-          height={64}
-          src={image}
-          width={64}
-        />
+        <Image alt='liked' height={64} src={image} width={64} />
       </div>
 
       <p className='text-white text-lg'>{name}</p>
