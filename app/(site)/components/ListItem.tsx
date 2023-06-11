@@ -2,10 +2,11 @@
 
 import type { FC } from 'react'
 
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { FaPlay } from 'react-icons/fa'
+
+import { LazyLoadImage } from '@common'
 
 interface ListItemProps {
   image: string
@@ -14,26 +15,21 @@ interface ListItemProps {
 }
 
 const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
-  const router = useRouter()
-
-  const onClick = () => {
-    router.push(href)
-  }
+  const { push } = useRouter()
 
   return (
     <button
       className='relative group flex items-center rounded-md overflow-hidden
       gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition pr-4'
-      onClick={onClick}
+      onClick={() => push(href)}
     >
-      <div className='relative min-h-[64px] min-w-[64px]'>
-        <Image
+      <div className='relative max-h-[64px] max-w-[64px]'>
+        <LazyLoadImage
           alt={name}
           className='object-cover'
-          fill
-          priority
-          sizes='auto'
+          height={64}
           src={image}
+          width={64}
         />
       </div>
 

@@ -1,12 +1,3 @@
-'use client'
-
-import type { NextPage } from 'next'
-
-import { useSessionContext } from '@supabase/auth-helpers-react'
-import { useQuery } from '@tanstack/react-query'
-
-import type { Song } from '@types'
-
 import { getSongsByTitle } from '@actions'
 
 import { Header } from '@common'
@@ -19,12 +10,8 @@ interface SearchProps {
   }
 }
 
-const Search: NextPage<SearchProps> = ({ searchParams }) => {
-  const { supabaseClient } = useSessionContext()
-  const { data: songs } = useQuery({
-    queryKey: ['search'],
-    queryFn: async () => await getSongsByTitle(supabaseClient, searchParams.title)
-  })
+const Search = async ({ searchParams }: SearchProps) => {
+  const songs = await getSongsByTitle(searchParams.title)
 
   return (
     <div className='bg-neutral-900 rounded-lg w-full h-full overflow-hidden overflow-y-auto'>
@@ -36,7 +23,9 @@ const Search: NextPage<SearchProps> = ({ searchParams }) => {
         </div>
       </Header>
 
-      <SearchContent songs={songs as Song[]} />
+      <div className='overflow-y-auto'>
+        <SearchContent songs={songs} />
+      </div>
     </div>
   )
 }

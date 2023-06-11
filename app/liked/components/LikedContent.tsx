@@ -28,14 +28,14 @@ const LikedContent: FC<LikedContentProps> = ({ songs }) => {
 
   if (songs?.length === 0) {
     return (
-      <div className='flex flex-col gap-y-2 w-full px-6 text-neutral-400 text-xl pb-4 sm:min-h-[calc(100vh-282.7px)] lg:min-h-[calc(100vh-325px)]'>
+      <div className='flex flex-col gap-y-2 w-full px-6 text-neutral-400 text-xl pb-4 h-[calc(72.8vh)]'>
         No liked songs.
       </div>
     )
   }
 
   return (
-    <div className='flex flex-col gap-y-2 w-full p-6 min-h-[73.2vh] lg:min-h-[69.2vh]'>
+    <div className='flex flex-col gap-y-2 w-full p-6 h-[calc(72.8vh)]'>
       {songs?.map((song) => (
         <div className='flex items-center gap-x-4 w-full' key={song.id}>
           <div className='flex-1'>

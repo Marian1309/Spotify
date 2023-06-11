@@ -10,7 +10,7 @@
   "scripts": {
     "commit": "pnpm lint && pnpm format && git add . && gitmoji -c && git push origin master && clear",
     "delete": "rimraf node_modules && rimraf .next",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "preview": "next build && next start",

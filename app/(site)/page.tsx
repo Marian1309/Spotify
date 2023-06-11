@@ -27,9 +27,7 @@ const Home = async () => {
       </Header>
 
       <div className='mt-2 mb-7 px-6'>
-        <div className='flex-between'>
-          <h1 className='text-white text-2xl font-semibold'>Newest songs</h1>
-        </div>
+        <h1 className='text-white text-2xl font-semibold'>Newest songs</h1>
 
         <PageContent songs={songs} />
       </div>

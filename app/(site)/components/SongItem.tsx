@@ -2,11 +2,14 @@
 
 import type { FC } from 'react'
 
+import clsx from 'clsx'
+
 import type { Song } from '@types'
 
 import { ICONS } from '@utils/constants'
 
 import { useLoadImage } from '@hooks'
+import { usePlayer } from '@hooks/zustand'
 
 import { LazyLoadImage } from '@common'
 import { PlayButton } from '@common/icons'
@@ -21,7 +24,7 @@ const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
 
   return (
     <div
-      className='relative group flex-center flex-col rounded-md overflow-hidden
+      className='relative group flex-center flex-col rounded-md overflow-hidden h-full
       bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition-colors p-3'
       onClick={() => onClick(data.id)}
     >

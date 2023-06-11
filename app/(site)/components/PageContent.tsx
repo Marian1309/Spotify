@@ -25,7 +25,8 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
     <div
       className={clsx(
         `grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4
-        xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6 h-full md:max-h-[calc(100vh-310px)] overflow-y-auto`
+        xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6
+        overflow-y-auto sm:md:lg:max-h-[calc(100vh-310px)] xl:2xl:h-full`
       )}
     >
       {songs?.map((song) => (

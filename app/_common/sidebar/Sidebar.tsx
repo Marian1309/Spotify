@@ -64,7 +64,7 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
         </Box>
       </div>
 
-      <main className='h-full flex-1 overflow-y-auto md:py-2 sm:py-0'>{children}</main>
+      <main className='h-full flex-1 md:py-2 sm:py-0'>{children}</main>
     </div>
   )
 }
