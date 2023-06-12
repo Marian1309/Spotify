@@ -62,8 +62,8 @@ const UploadModal: FC = () => {
     try {
       setIsLoading(true)
 
-      const imageFile = values.image[0]
-      const songFile = values.song[0]
+      const imageFile = values.image[0] as File
+      const songFile = values.song[0] as File
 
       if (!imageFile || !songFile || !user) {
         return toast.error('Missing fields')
@@ -113,7 +113,8 @@ const UploadModal: FC = () => {
       setPreviewImage('')
       uploadModal.onClose()
       refresh()
-    } catch (err: unknown) {
+    } catch (err: any) {
+      console.log(err.message)
       toast.error('Something went wrong')
     } finally {
       refresh()

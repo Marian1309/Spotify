@@ -79,12 +79,12 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         className: 'bg-white px-6 py-2',
         onClick: handleLogout,
         title: 'Logout'
-      },
-      {
-        className: 'bg-white px-4 h-[44.18px]',
-        onClick: () => push('/account'),
-        title: <FaUserAlt />
       }
+      // {
+      //   className: 'bg-white px-4 h-[44.18px]',
+      //   onClick: () => push('/account'),
+      //   title: <FaUserAlt />
+      // }
     ]
   } satisfies { login: Action[]; logged: Action[] }
 
