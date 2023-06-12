@@ -22,7 +22,7 @@ const Player: FC = () => {
   const songUrl = useLoadSongUrl(song as Song)
 
   return (
-    <div className='block bg-black w-full pt-5 px-4 md:py-1 h-[80px]'>
+    <div className='h-[80px] w-full bg-black px-4 pb-4 pt-5 mili:fixed mili:bottom-0 sm:block md:py-1'>
       <PlayerContent key={songUrl} song={song as Song} songUrl={songUrl} />
     </div>
   )

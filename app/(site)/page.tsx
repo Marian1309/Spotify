@@ -13,21 +13,21 @@ const Home = async () => {
 
   return (
     <div
-      className='text-neutral-900 bg-neutral-900 sm:rounded-none md:rounded-lg
-      w-full overflow-hidden overflow-y-auto sm:h-[calc(100vh-94px)] mili:h-[calc(100vh-134px)]'
+      className='w-full overflow-hidden overflow-y-auto bg-neutral-900
+      text-neutral-900 sm:h-[calc(100vh-94px)] sm:rounded-none md:rounded-lg'
     >
       <Header>
         <div className='mb-2 overflow-y-hidden'>
-          <h1 className='text-white text-3xl font-semibold'>Welcome Back</h1>
+          <h1 className='text-3xl font-semibold text-white'>Welcome Back</h1>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4'>
+          <div className='mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
             <ListItem href='liked' image={ICONS.liked} name='Liked songs' />
           </div>
         </div>
       </Header>
 
-      <div className='mt-2 mb-7 px-6'>
-        <h1 className='text-white text-2xl font-semibold'>Newest songs</h1>
+      <div className='mb-7 mt-2 px-6'>
+        <h1 className='text-2xl font-semibold text-white'>Newest songs</h1>
 
         <PageContent songs={songs} />
       </div>
