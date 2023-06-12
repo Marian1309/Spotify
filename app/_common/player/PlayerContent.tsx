@@ -166,7 +166,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
         )}
       </div>
 
-      <div className='flex w-full pr-2 mili:hidden '>
+      <div className='sm:flex w-full pr-2 mili:hidden justify-end'>
         <div className='flex items-center gap-x-2 w-[120px]'>
           <VolumeIcon className='cursor-pointer' onClick={toggleMute} size={34} />
 
