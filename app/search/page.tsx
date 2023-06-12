@@ -16,7 +16,10 @@ const Search = async ({ searchParams }: SearchProps) => {
   const songs = await getSongsByTitle(searchParams.title)
 
   return (
-    <div className='bg-neutral-900 rounded-lg w-full overflow-y-auto overflow-hidden h-[calc(100vh-94px)]'>
+    <div
+      className='bg-neutral-900 sm:rounded-lg mili:rounded-none w-full overflow-y-auto
+      overflow-hidden mili:h-full sm:h-[calc(100vh-94px)]'
+    >
       <Header className='from-bg-neutral-900'>
         <div className='mb-2 flex flex-col gap-y-6'>
           <h1 className='text-white text-3xl font-semibold'>Search</h1>

@@ -14,7 +14,7 @@ const Home = async () => {
   return (
     <div
       className='w-full overflow-hidden overflow-y-auto bg-neutral-900
-      text-neutral-900 sm:h-[calc(100vh-94px)] sm:rounded-none md:rounded-lg'
+      text-neutral-900 sm:h-[calc(100vh-94px)] mili:h-full mili:rounded-none sm:rounded-lg'
     >
       <Header>
         <div className='mb-2 overflow-y-hidden'>
