@@ -19,11 +19,16 @@ interface SongItemProps {
 const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
   const imagePath = useLoadImage(data)
 
+  const handleClick = () => {
+    localStorage.setItem('song-id', data.id)
+    onClick(data.id)
+  }
+
   return (
     <div
       className='relative group flex-center flex-col rounded-md overflow-hidden h-full
       bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition-colors p-3'
-      onClick={() => onClick(data.id)}
+      onClick={handleClick}
     >
       <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>
         <LazyLoadImage alt='song' src={imagePath || ICONS.liked} />

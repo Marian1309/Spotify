@@ -11,9 +11,11 @@ import useSound from 'use-sound'
 
 import type { Song } from '@types'
 
+import { useUser } from '@hooks'
 import { usePlayer } from '@hooks/zustand'
 
 import { LikeButton, MediaItem } from '@common'
+import { SongLoader } from '@common/icons'
 import { Slider } from '@common/radix-ui'
 
 interface PlayerContentProps {
@@ -23,18 +25,33 @@ interface PlayerContentProps {
 
 const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer()
+  const { user } = useUser()
   const [volume, setVolume] = useState<number>(1)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [songLoaded, setSongLoaded] = useState<boolean>(false)
   const [play, { pause, sound }] = useSound(songUrl, {
     volume,
-    onplay: () => setIsPlaying(true),
+    onplay: () => {
+      setIsPlaying(true)
+    },
     onend: () => {
       setIsPlaying(false)
       onPlayNext()
     },
-    onpause: () => setIsPlaying(false),
+    onpause: () => {
+      setIsPlaying(false)
+    },
+    onload: () => {
+      setSongLoaded(true)
+    },
     format: ['mp3']
   })
+
+  // document.body.addEventListener('keydown', (e) => {
+  //   if (e.code === 'Space') {
+  //     handlePlay()
+  //   }
+  // })
 
   useEffect(() => {
     sound?.play()
@@ -44,10 +61,16 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
   }, [sound])
 
+  useEffect(() => {
+    if (!user) {
+      setSongLoaded(true)
+    }
+  }, [user])
+
   const icon = isPlaying ? (
     <BsPauseFill className='text-black' size={30} />
   ) : (
-    <BsPlayFill className='text-black relative pl-[2px]' size={30} />
+    <BsPlayFill className='text-black relative left-[2px]' size={30} />
   )
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
@@ -98,45 +121,44 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   }
 
   return (
-    <div className='grid grid-cols-2 md:grid-cols-3 h-full'>
+    <div className='h-full flex'>
       <div className='w-full flex justify-start'>
         <div className='flex items-center gap-x-4'>
           <MediaItem data={song} />
-          <LikeButton songId={song.id} />
+          <LikeButton songId={song?.id} />
         </div>
+      </div>
 
-        <div className='flex md:hidden col-auto w-full justify-end items-center'>
-          <div
-            className='h-10 w-10 flex-center rounded-full bg-white p-1 cursor-pointer'
-            onClick={handlePlay}
-          >
-            {icon}
+      <div className='h-full flex justify-center items-center w-full max-w-[722px] gap-x-6'>
+        {songLoaded ? (
+          <>
+            <AiFillStepBackward
+              className='text-neutral-400 cursor-pointer hover:text-white transition-colors'
+              onClick={onPlayPrevious}
+              size={30}
+            />
+
+            <div
+              className='flex-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer relative'
+              onClick={handlePlay}
+            >
+              {icon}
+            </div>
+
+            <AiFillStepForward
+              className='text-neutral-400 cursor-pointer hover:text-white transition-colors'
+              onClick={onPlayNext}
+              size={30}
+            />
+          </>
+        ) : (
+          <div className='relative bottom-[3px]'>
+            <SongLoader />
           </div>
-        </div>
+        )}
       </div>
 
-      <div className='hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-6'>
-        <AiFillStepBackward
-          className='text-neutral-400 cursor-pointer hover:text-white transition-colors'
-          onClick={onPlayPrevious}
-          size={30}
-        />
-
-        <div
-          className='flex-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer relative'
-          onClick={() => pause()}
-        >
-          {icon}
-        </div>
-
-        <AiFillStepForward
-          className='text-neutral-400 cursor-pointer hover:text-white transition-colors'
-          onClick={onPlayNext}
-          size={30}
-        />
-      </div>
-
-      <div className='hidden md:flex w-full justify-end pr-2'>
+      <div className='flex w-full justify-end pr-2'>
         <div className='flex items-center gap-x-2 w-[120px]'>
           <VolumeIcon className='cursor-pointer' onClick={toggleMute} size={34} />
 

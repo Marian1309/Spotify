@@ -47,7 +47,7 @@ const Library: FC<LibraryProps> = ({ songs }) => {
         />
       </div>
 
-      <div className='flex flex-col gap-y-2 mt-4 px-3'>
+      <div className='flex flex-col gap-y-4 mt-4 px-3 last:mb-4'>
         {songs?.map((song) => (
           <MediaItem data={song} key={song.id} onClick={(id: string) => onPlay(id)} />
         ))}

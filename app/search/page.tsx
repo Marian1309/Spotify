@@ -10,13 +10,13 @@ interface SearchProps {
   }
 }
 
-export const revalidate = 1
+export const revalidate = 0
 
 const Search = async ({ searchParams }: SearchProps) => {
   const songs = await getSongsByTitle(searchParams.title)
 
   return (
-    <div className='bg-neutral-900 rounded-lg w-full h-full overflow-hidden overflow-y-auto'>
+    <div className='bg-neutral-900 rounded-lg w-full overflow-y-auto overflow-hidden h-[calc(100vh-94px)]'>
       <Header className='from-bg-neutral-900'>
         <div className='mb-2 flex flex-col gap-y-6'>
           <h1 className='text-white text-3xl font-semibold'>Search</h1>
@@ -25,11 +25,10 @@ const Search = async ({ searchParams }: SearchProps) => {
         </div>
       </Header>
 
-      <div className='md:h-[calc(100vh-214px)] overflow-y-auto'>
-        <SearchContent songs={songs} />
-      </div>
+      <SearchContent songs={songs} />
     </div>
   )
 }
 
 export default Search
+8

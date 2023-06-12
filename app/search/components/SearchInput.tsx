@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { Input } from '@common'
 import qs from 'query-string'
 
 import { useDebounce } from '@hooks'
+
+import { Input } from '@common'
 
 const SearchInput: FC = () => {
   const router = useRouter()

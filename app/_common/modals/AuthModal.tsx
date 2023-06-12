@@ -33,32 +33,34 @@ const AuthModal: FC = () => {
   }
 
   return (
-    <Modal
-      description='Login to your account'
-      isOpen={isOpen}
-      onChange={onChange}
-      title='Welcome Back'
-    >
-      <Auth
-        appearance={{
-          theme: ThemeSupa,
-          variables: {
-            default: {
-              colors: {
-                brand: '#404040',
-                brandAccent: '#22c55e'
+    <div className='sm:grid sm:place-items-center'>
+      <Modal
+        description='Login to your account'
+        isOpen={isOpen}
+        onChange={onChange}
+        title='Welcome Back'
+      >
+        <Auth
+          appearance={{
+            theme: ThemeSupa,
+            variables: {
+              default: {
+                colors: {
+                  brand: '#404040',
+                  brandAccent: '#22c55e'
+                }
               }
             }
-          }
-        }}
-        magicLink
-        providers={['github', 'google']}
-        socialLayout='vertical'
-        supabaseClient={supabaseClient}
-        theme='dark'
-        view='sign_in'
-      />
-    </Modal>
+          }}
+          magicLink
+          providers={['github', 'google']}
+          socialLayout='vertical'
+          supabaseClient={supabaseClient}
+          theme='dark'
+          view='sign_in'
+        />
+      </Modal>
+    </div>
   )
 }
 

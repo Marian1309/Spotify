@@ -22,7 +22,7 @@ const LikedContent: FC<LikedContentProps> = ({ songs }) => {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.replace('/')
+      router.push('/')
     }
   }, [isLoading, user, router])
 

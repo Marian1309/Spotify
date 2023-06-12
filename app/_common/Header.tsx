@@ -11,12 +11,11 @@ import clsx from 'clsx'
 import { toast } from 'react-hot-toast'
 import type { IconType } from 'react-icons'
 import { BiSearch } from 'react-icons/bi'
-import { FaUserAlt } from 'react-icons/fa'
 import { HiHome } from 'react-icons/hi'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 
 import { useUser } from '@hooks'
-import { useAuthModal } from '@hooks/zustand'
+import { useAuthModal, usePlayer } from '@hooks/zustand'
 
 import Button from './Button'
 
@@ -37,6 +36,7 @@ type Action = {
 }
 
 const Header: FC<HeaderProps> = ({ children, className }) => {
+  const { setId } = usePlayer()
   const { back, forward, refresh, push } = useRouter()
   const authModal = useAuthModal()
   const supabaseClient = useSupabaseClient()
@@ -45,6 +45,10 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut()
 
+    localStorage.removeItem('song-id')
+    setId('')
+
+    push('/')
     refresh()
 
     if (error) {
@@ -116,7 +120,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         </div>
 
         <div className='flex-between gap-x-4'>
-          {headerActions[user ? 'logged' : 'login'].map(
+          {headerActions[user !== null ? 'logged' : 'login'].map(
             ({ title, ...buttonProps }, index: number) => (
               <Fragment key={index}>
                 <Button {...buttonProps}>{title}</Button>

@@ -1,6 +1,7 @@
 'use client'
 
 import type { FC } from 'react'
+import { useEffect } from 'react'
 
 import type { Song } from '@types'
 
@@ -10,17 +11,19 @@ import { usePlayer } from '@hooks/zustand'
 import PlayerContent from './PlayerContent'
 
 const Player: FC = () => {
-  const player = usePlayer()
-  const { song } = useGetSongById(player.activeId)
+  const { setId, activeId } = usePlayer()
+
+  useEffect(() => {
+    const songId = localStorage.getItem('song-id')
+    setId(songId as string)
+  }, [])
+
+  const { song } = useGetSongById(activeId)
   const songUrl = useLoadSongUrl(song as Song)
 
-  if (!song || !songUrl || !player.activeId) {
-    return null
-  }
-
   return (
-    <div className='fixed bottom-0 bg-black w-full px-4 py-2 h-[80px]'>
-      <PlayerContent key={songUrl} song={song} songUrl={songUrl} />
+    <div className='block bg-black w-full pt-5 px-4 md:py-1 h-[80px]'>
+      <PlayerContent key={songUrl} song={song as Song} songUrl={songUrl} />
     </div>
   )
 }

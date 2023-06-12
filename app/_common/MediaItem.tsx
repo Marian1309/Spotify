@@ -20,19 +20,18 @@ const MediaItem: FC<MediaItemProps> = ({ data, onClick }) => {
 
   const handleClick = () => {
     if (onClick) {
-      return onClick(data.id)
+      return onClick(data?.id)
     }
   }
 
   return (
     <div
-      className='flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md'
+      className='flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 pt-0 pb-0 rounded-md'
       onClick={handleClick}
     >
-      <div className='relative rounded-md min-h-[50px] min-w-[50px] overflow-hidden'>
+      <div className='rounded-md overflow-hidden pt-2'>
         <LazyLoadImage
           alt='Media Item'
-          className='object-fill'
           height={50}
           src={imageUrl || ICONS.liked}
           width={50}
@@ -40,9 +39,9 @@ const MediaItem: FC<MediaItemProps> = ({ data, onClick }) => {
       </div>
 
       <div className='flex flex-col gap-y-1 overflow-hidden'>
-        <p className='text-white truncate'>{data.title}</p>
+        <p className='text-white truncate'>{data?.title}</p>
 
-        <p className='text-sm truncate text-neutral-400'>{data.author}</p>
+        <p className='text-sm truncate text-neutral-400'>{data?.author}</p>
       </div>
     </div>
   )
