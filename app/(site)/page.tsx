@@ -17,7 +17,7 @@ const Home = async () => {
       w-full overflow-hidden overflow-y-auto h-[calc(100vh-94px)]'
     >
       <Header>
-        <div className='mb-2'>
+        <div className='mb-2 overflow-y-hidden'>
           <h1 className='text-white text-3xl font-semibold'>Welcome Back</h1>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4'>
@@ -26,7 +26,7 @@ const Home = async () => {
         </div>
       </Header>
 
-      <div className='mt-2 mb-7 px-6 overflow-y-auto'>
+      <div className='mt-2 mb-7 px-6'>
         <h1 className='text-white text-2xl font-semibold'>Newest songs</h1>
 
         <PageContent songs={songs} />

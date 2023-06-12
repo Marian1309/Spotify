@@ -4,12 +4,16 @@ import type { FC } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
+import Image from 'next/image'
+
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2'
 import useSound from 'use-sound'
 
 import type { Song } from '@types'
+
+import { ICONS } from '@utils/constants'
 
 import { useUser } from '@hooks'
 import { usePlayer } from '@hooks/zustand'
@@ -70,7 +74,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   const icon = isPlaying ? (
     <BsPauseFill className='text-black' size={30} />
   ) : (
-    <BsPlayFill className='text-black relative left-[2px]' size={30} />
+    <BsPlayFill className='text-black relative left-[1.5px]' size={30} />
   )
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
@@ -121,10 +125,14 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   }
 
   return (
-    <div className='h-full flex'>
+    <div className='h-full flex items-center justify-evenly'>
       <div className='w-full flex justify-start'>
         <div className='flex items-center gap-x-4'>
-          <MediaItem data={song} />
+          {song ? (
+            <MediaItem data={song} />
+          ) : (
+            <Image alt='liked' height={50} src={ICONS.liked} width={50} />
+          )}
           <LikeButton songId={song?.id} />
         </div>
       </div>
@@ -158,7 +166,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
         )}
       </div>
 
-      <div className='flex w-full justify-end pr-2'>
+      <div className='flex w-full pr-2 mili:hidden '>
         <div className='flex items-center gap-x-2 w-[120px]'>
           <VolumeIcon className='cursor-pointer' onClick={toggleMute} size={34} />
 

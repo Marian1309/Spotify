@@ -3,7 +3,11 @@
 module.exports = {
   content: ['./app/**/*.tsx'],
   theme: {
-    extend: {}
+    extend: {
+      screens: {
+        mili: '380px'
+      }
+    }
   },
   plugins: []
 }
