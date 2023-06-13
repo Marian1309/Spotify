@@ -1,69 +1,7 @@
-@import './classes.scss';
+@import './reset';
+@import './classes';
+@import './customs'; // Specific styles
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Reset styles */
-
-html,
-body {
-  min-height: 100vh;
-  font-size: 14px;
-  line-height: 1.5;
-  scroll-behavior: smooth;
-  text-rendering: optimizespeed;
-  color: white;
-  background-color: black;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: rgba(
-    0,
-    0,
-    0,
-    0
-  ); // Для виключення мигання при кліку на телефоні
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-ul li,
-ol li,
-li {
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-button {
-  cursor: pointer;
-}
-
-nav,
-footer,
-header,
-aside,
-main {
-  display: block;
-}
-
-input,
-button,
-textarea,
-select {
-  font-family: inherit;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}

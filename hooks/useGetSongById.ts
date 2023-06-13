@@ -8,6 +8,7 @@ import type { Song } from '@types'
 const useGetSongById = (id?: string) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [song, setSong] = useState<Song>()
+
   const { supabaseClient } = useSessionContext()
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const useGetSongById = (id?: string) => {
     fetchSong()
   }, [id, supabaseClient])
 
-  return useMemo(() => ({ isLoading, song }), [isLoading, song])
+  return useMemo(() => ({ isLoading, song: song as Song }), [isLoading, song])
 }
 
 export default useGetSongById

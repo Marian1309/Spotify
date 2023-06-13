@@ -17,11 +17,12 @@ interface LikeButtonProps {
 }
 
 const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
-  const { supabaseClient } = useSessionContext()
+  const [isLiked, setIsLiked] = useState<boolean>(false)
   const { refresh } = useRouter()
+  const { supabaseClient } = useSessionContext()
+
   const authModal = useAuthModal()
   const { user } = useUser()
-  const [isLiked, setIsLiked] = useState<boolean>(false)
 
   let toastId: string
 
@@ -84,7 +85,10 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
   }
 
   return (
-    <button className='transition hover:opacity-75' onClick={handleClick}>
+    <button
+      className='transition-opacity hover:opacity-75'
+      onClick={handleClick}
+    >
       <Icon color={isLiked ? '#22c55e' : 'white'} size={25} />
     </button>
   )

@@ -1,20 +1,22 @@
 import type { Song } from '@types'
 
-import useUser from './useUser'
 import { useAuthModal, usePlayer } from './zustand'
 
+import useUser from './useUser'
+
 const useOnPlay = (songs: Song[]) => {
-  const player = usePlayer()
+  const { setId, setIds } = usePlayer()
   const authModal = useAuthModal()
-  const { user } = useUser()
+
+  const user = useUser()
 
   const onPlay = (id: string) => {
     if (!user) {
       return authModal.onOpen()
     }
 
-    player.setId(id)
-    player.setIds(songs.map((song) => song.id))
+    setId(id)
+    setIds(songs.map((song) => song.id))
   }
 
   return onPlay

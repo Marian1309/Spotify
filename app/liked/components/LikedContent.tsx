@@ -17,14 +17,15 @@ interface LikedContentProps {
 
 const LikedContent: FC<LikedContentProps> = ({ songs }) => {
   const router = useRouter()
-  const { isLoading, user } = useUser()
+
+  const { user } = useUser()
   const onPlay = useOnPlay(songs)
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (!user) {
       router.push('/')
     }
-  }, [isLoading, user, router])
+  }, [user, router])
 
   if (songs?.length === 0) {
     return (
@@ -36,7 +37,7 @@ const LikedContent: FC<LikedContentProps> = ({ songs }) => {
 
   return (
     <div className='flex flex-col gap-y-2 w-full p-6 h-[calc(72.8vh)]'>
-      {songs?.map((song) => (
+      {songs.map((song) => (
         <div className='flex items-center gap-x-4 w-full' key={song.id}>
           <div className='flex-1'>
             <MediaItem data={song} onClick={(id: string) => onPlay(id)} />

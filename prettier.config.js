@@ -3,7 +3,7 @@
 const isTailwind = process.env.TAILWIND
 
 const baseRules = {
-  printWidth: 90,
+  printWidth: 80,
   trailingComma: 'none',
   tabWidth: 2,
   semi: false,
@@ -15,13 +15,10 @@ const baseRules = {
     '^(react/(.*)$)|^(react$)',
     '^(next/(.*)$)|^(next$)',
     '<THIRD_PARTY_MODULES>',
-    '^@types',
-    '^@fonts',
-    '^@prismaClient',
-    '^@nextAuth',
-    '^@providers',
+    '^@types|^@db_types',
+    '^@providers|^@context',
     '^@utils',
-    '^@hooks|^@actions',
+    '^@hooks|^@hooks/zustand|^./zustand|^@actions',
     '^@common',
     '^@styles',
     '^./components',
@@ -35,7 +32,10 @@ const baseRules = {
 
 const withTailwind = {
   ...baseRules,
-  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss']
+  plugins: [
+    '@trivago/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss'
+  ]
 }
 
 module.exports = isTailwind ? withTailwind : baseRules

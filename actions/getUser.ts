@@ -5,13 +5,9 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 const getUser = async () => {
   const supabase = createServerComponentClient({ cookies })
 
-  const user = supabase.auth.getUser()
+  const user = await supabase.auth.getUser()
 
-  if (user) {
-    return user
-  } else {
-    return null
-  }
+  return user ?? null
 }
 
 export default getUser

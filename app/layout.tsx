@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
-
 import type { Metadata } from 'next'
 import { Figtree } from 'next/font/google'
+
+import type { Children } from '@types'
 
 import ModalProvider from '@providers/_modal'
 import UserProvider from '@providers/_user'
@@ -17,7 +17,10 @@ import { Player } from '@common/player'
 
 import '@styles/globals.scss'
 
-const figTree = Figtree({ subsets: ['latin'], fallback: ['system-ui', 'arial'] })
+const figTree = Figtree({
+  subsets: ['latin'],
+  fallback: ['system-ui', 'arial']
+})
 
 export const metadata: Metadata = {
   title: 'Spotify',
@@ -28,7 +31,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 0
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
+const RootLayout = async ({ children }: Children) => {
   const userSongs = await getSongsById()
 
   return (

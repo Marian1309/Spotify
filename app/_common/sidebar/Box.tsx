@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react'
 
-import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 interface BoxProps {
   children: ReactNode
@@ -9,7 +9,9 @@ interface BoxProps {
 
 const Box: FC<BoxProps> = ({ children, className }) => {
   return (
-    <div className={clsx('w-full rounded-lg bg-neutral-900', className)}>{children}</div>
+    <div className={twMerge('w-full rounded-lg bg-neutral-900', className)}>
+      {children}
+    </div>
   )
 }
 

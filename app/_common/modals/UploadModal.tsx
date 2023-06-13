@@ -29,10 +29,12 @@ const UploadModal: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { refresh } = useRouter()
   const supabaseClient = useSupabaseClient()
+
   const uploadModal = useUploadModal()
   const { previewImage, previewAudio, setPreviewImage, setPreviewAudio } =
     useUploadPreview()
   const { user } = useUser()
+
   const {
     register,
     handleSubmit,
@@ -83,25 +85,28 @@ const UploadModal: FC = () => {
         return toast.error('Failed song upload')
       }
 
-      const { data: imageData, error: imageError } = await supabaseClient.storage
-        .from('images')
-        .upload(`image-${values.title}-${uniqueId}`, imageFile, {
-          cacheControl: '3600',
-          upsert: false
-        })
+      const { data: imageData, error: imageError } =
+        await supabaseClient.storage
+          .from('images')
+          .upload(`image-${values.title}-${uniqueId}`, imageFile, {
+            cacheControl: '3600',
+            upsert: false
+          })
 
       if (imageError) {
         setIsLoading(false)
         return toast.error('Failed image upload')
       }
 
-      const { error: supabaseError } = await supabaseClient.from('songs').insert({
-        user_id: user.id,
-        title: values.title,
-        author: values.author,
-        image_path: imageData.path,
-        song_path: songData.path
-      })
+      const { error: supabaseError } = await supabaseClient
+        .from('songs')
+        .insert({
+          user_id: user.id,
+          title: values.title,
+          author: values.author,
+          image_path: imageData.path,
+          song_path: songData.path
+        })
 
       if (supabaseError) {
         return toast.error(supabaseError.message)
@@ -211,7 +216,9 @@ const UploadModal: FC = () => {
         )}
 
         <div>
-          <div className='pb-1 text-lg'>Select a square photo (example: 200x200)</div>
+          <div className='pb-1 text-lg'>
+            Select a square photo (example: 200x200)
+          </div>
 
           <Input
             accept='image/*'
@@ -232,7 +239,12 @@ const UploadModal: FC = () => {
         {previewImage && (
           <>
             <h3>Image preview</h3>
-            <LazyLoadImage alt='preview' height={200} src={previewImage} width={200} />
+            <LazyLoadImage
+              alt='preview'
+              height={200}
+              src={previewImage}
+              width={200}
+            />
           </>
         )}
 

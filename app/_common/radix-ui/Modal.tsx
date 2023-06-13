@@ -11,7 +11,13 @@ interface ModalProps {
   children: ReactNode
 }
 
-const Modal: FC<ModalProps> = ({ isOpen, onChange, title, description, children }) => {
+const Modal: FC<ModalProps> = ({
+  isOpen,
+  onChange,
+  title,
+  description,
+  children
+}) => {
   return (
     <Dialog.Root defaultOpen={isOpen} onOpenChange={onChange} open={isOpen}>
       <Dialog.Portal style={{ paddingTop: '100px' }}>

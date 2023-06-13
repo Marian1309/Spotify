@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSessionContext } from '@supabase/auth-helpers-react'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 
@@ -14,9 +14,8 @@ import { useAuthModal } from '@hooks/zustand'
 import { Modal } from '@common/radix-ui'
 
 const AuthModal: FC = () => {
-  const supabaseClient = useSupabaseClient()
-  const { session } = useSessionContext()
   const router = useRouter()
+  const { session, supabaseClient } = useSessionContext()
   const { isOpen, onClose } = useAuthModal()
 
   useEffect(() => {

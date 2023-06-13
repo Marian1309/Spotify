@@ -1,5 +1,3 @@
-export { default as useTanstackQuery } from './useTanstack'
-
 export { default as useUser } from './useUser'
 export { default as useLoadImage } from './useLoadImage'
 export { default as useDebounce } from './useDebounce'

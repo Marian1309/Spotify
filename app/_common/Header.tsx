@@ -7,12 +7,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import clsx from 'clsx'
 import { toast } from 'react-hot-toast'
 import type { IconType } from 'react-icons'
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
+import { twMerge } from 'tailwind-merge'
 
 import { useUser } from '@hooks'
 import { useAuthModal, usePlayer } from '@hooks/zustand'
@@ -36,10 +36,11 @@ type Action = {
 }
 
 const Header: FC<HeaderProps> = ({ children, className }) => {
-  const { setId } = usePlayer()
   const { back, forward, refresh, push } = useRouter()
-  const authModal = useAuthModal()
   const supabaseClient = useSupabaseClient()
+
+  const { onOpen } = useAuthModal()
+  const { setId } = usePlayer()
   const { user } = useUser()
 
   const handleLogout = async () => {
@@ -73,10 +74,14 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
     login: [
       {
         className: 'bg-transparent text-white font-medium whitespace-nowrap',
-        onClick: authModal.onOpen,
+        onClick: onOpen,
         title: 'Sign Up'
       },
-      { className: 'bg-white px-6 py-[6px]', onClick: authModal.onOpen, title: 'Log In' }
+      {
+        className: 'bg-white px-6 py-[6px]',
+        onClick: onOpen,
+        title: 'Log In'
+      }
     ],
     logged: [
       {
@@ -84,16 +89,16 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         onClick: handleLogout,
         title: 'Logout'
       }
-      // {
-      //   className: 'bg-white px-4 h-[44.18px]',
-      //   onClick: () => push('/account'),
-      //   title: <FaUserAlt />
-      // }
     ]
   } satisfies { login: Action[]; logged: Action[] }
 
   return (
-    <div className={clsx('h-fit bg-gradient-to-b from-emerald-600 p-6', className)}>
+    <div
+      className={twMerge(
+        'h-fit bg-gradient-to-b from-emerald-600 p-6',
+        className
+      )}
+    >
       <div className='w-full mb-4 flex-between'>
         <div className='hidden md:flex gap-x-2 items-center'>
           {arrows.map(({ icon: Icon, onClick }, index: number) => (
@@ -114,13 +119,13 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
               href={href}
               key={index}
             >
-              <Icon size={20} />
+              <Icon className='text-black' size={20} />
             </Link>
           ))}
         </div>
 
         <div className='flex-between gap-x-4'>
-          {headerActions[user !== null ? 'logged' : 'login'].map(
+          {headerActions[user === null ? 'login' : 'logged'].map(
             ({ title, ...buttonProps }, index: number) => (
               <Fragment key={index}>
                 <Button {...buttonProps}>{title}</Button>

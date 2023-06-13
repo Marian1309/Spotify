@@ -7,7 +7,8 @@ import type { Song } from '@types'
 const getSongs = async (): Promise<Song[]> => {
   const supabase = createServerComponentClient({ cookies })
 
-  const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession()
 
   if (sessionError) {
     console.log(sessionError.message)
@@ -25,7 +26,7 @@ const getSongs = async (): Promise<Song[]> => {
     return []
   }
 
-  return (data as any) || []
+  return (data as Song[]) ?? []
 }
 
 export default getSongs

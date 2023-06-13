@@ -5,7 +5,6 @@ import { useMemo } from 'react'
 
 import { usePathname } from 'next/navigation'
 
-import clsx from 'clsx'
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 
@@ -25,14 +24,24 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
 
   const routes = useMemo(
     () => [
-      { icon: HiHome, label: 'Home', active: pathname !== '/search', href: '/' },
-      { icon: BiSearch, label: 'Search', active: pathname === '/search', href: '/search' }
+      {
+        icon: HiHome,
+        label: 'Home',
+        active: pathname !== '/search',
+        href: '/'
+      },
+      {
+        icon: BiSearch,
+        label: 'Search',
+        active: pathname === '/search',
+        href: '/search'
+      }
     ],
     [pathname]
   ) satisfies Route[]
 
   return (
-    <div className={clsx('flex')}>
+    <div className='flex'>
       <div className='hidden h-full w-[300px] flex-col gap-y-[8.3px] p-2 md:flex'>
         <Box>
           <div className='flex flex-col gap-y-4 px-5 py-4'>

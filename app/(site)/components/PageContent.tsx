@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import type { Song } from '@types'
 
 import { useOnPlay } from '@hooks'
+import { usePlayer } from '@hooks/zustand'
 
 import SongItem from './SongItem'
 
@@ -16,9 +17,17 @@ interface PageContentProps {
 
 const PageContent: FC<PageContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs)
+  const { setSongLoaded } = usePlayer()
+
+  const handleClick = (id: string) => {
+    onPlay(id)
+    setSongLoaded(false)
+  }
 
   if (songs.length === 0) {
-    return <div className='mt-4 text-neutral-400 text-xl'>No songs available.</div>
+    return (
+      <div className='mt-4 text-neutral-400 text-xl'>No songs available.</div>
+    )
   }
 
   return (
@@ -29,7 +38,7 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
       )}
     >
       {songs.map((song) => (
-        <SongItem data={song} key={song.id} onClick={(id: string) => onPlay(id)} />
+        <SongItem data={song} key={song.id} onClick={handleClick} />
       ))}
     </div>
   )

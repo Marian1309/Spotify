@@ -2,7 +2,6 @@
 
 import type { FC } from 'react'
 import { useEffect } from 'react'
-import { useState } from 'react'
 
 import Image from 'next/image'
 
@@ -28,11 +27,19 @@ interface PlayerContentProps {
 }
 
 const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
-  const player = usePlayer()
+  const {
+    ids,
+    isPlaying,
+    setIsPlaying,
+    activeId,
+    setId,
+    setSongLoaded,
+    setVolume,
+    songLoaded,
+    volume
+  } = usePlayer()
   const { user } = useUser()
-  const [volume, setVolume] = useState<number>(1)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [songLoaded, setSongLoaded] = useState<boolean>(false)
+
   const [play, { pause, sound }] = useSound(songUrl, {
     volume,
     onplay: () => {
@@ -51,12 +58,6 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     format: ['mp3']
   })
 
-  // document.body.addEventListener('keydown', (e) => {
-  //   if (e.code === 'Space') {
-  //     handlePlay()
-  //   }
-  // })
-
   useEffect(() => {
     sound?.play()
 
@@ -68,6 +69,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   useEffect(() => {
     if (!user) {
       setSongLoaded(true)
+      setId('')
     }
   }, [user])
 
@@ -79,33 +81,33 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
   const onPlayNext = () => {
-    if (player.ids.length === 0) {
+    if (ids.length === 0) {
       return
     }
 
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId)
-    const nextSong = player.ids[currentIndex + 1]
+    const currentIndex = ids.findIndex((id) => id === activeId)
+    const nextSong = ids[currentIndex + 1]
 
     if (!nextSong) {
-      return player.setId(player.ids[0])
+      return setId(ids[0])
     }
 
-    player.setId(nextSong)
+    setId(nextSong)
   }
 
   const onPlayPrevious = () => {
-    if (player.ids.length === 0) {
+    if (ids.length === 0) {
       return
     }
 
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId)
-    const previousSong = player.ids[currentIndex - 1]
+    const currentIndex = ids.findIndex((id) => id === activeId)
+    const previousSong = ids[currentIndex - 1]
 
     if (!previousSong) {
-      return player.setId(player.ids[player.ids.length - 1])
+      return setId(ids[ids.length - 1])
     }
 
-    player.setId(previousSong)
+    setId(previousSong)
   }
 
   const handlePlay = () => {
@@ -160,7 +162,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
             />
           </>
         ) : (
-          <div className='relative bottom-[3px]'>
+          <div className='relative bottom-[2px]'>
             <SongLoader />
           </div>
         )}
@@ -168,7 +170,11 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
 
       <div className='sm:flex w-full pr-2 mili:hidden justify-end'>
         <div className='flex items-center gap-x-2 w-[120px]'>
-          <VolumeIcon className='cursor-pointer' onClick={toggleMute} size={34} />
+          <VolumeIcon
+            className='cursor-pointer'
+            onClick={toggleMute}
+            size={34}
+          />
 
           <Slider onChange={(value) => setVolume(value)} value={volume} />
         </div>
