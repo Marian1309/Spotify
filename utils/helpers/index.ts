@@ -22,11 +22,11 @@ const getImageDimensions = (file: File, callback: Function) => {
   img.src = URL.createObjectURL(file)
 }
 
-export const checkUser = (user: User | null, fn: () => void) => {
-  if (user) {
-    fn()
+export const checkUser = (user: User | null, fn: () => void, text?: string) => {
+  if (!user) {
+    return toast.error(text || 'Please login in order to listen to music')
   } else {
-    toast.error('Please login in order to listen to music')
+    fn()
   }
 }
 

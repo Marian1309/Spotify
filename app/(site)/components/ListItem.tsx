@@ -21,7 +21,13 @@ const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
   const { push } = useRouter()
   const { user } = useUser()
 
-  const handleToLikedRoute = () => checkUser(user, () => push(href))
+  const handleToLikedRoute = () => {
+    checkUser(
+      user,
+      () => push(href),
+      'Please login in order to go to your favorite songs'
+    )
+  }
 
   return (
     <button
