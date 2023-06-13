@@ -15,13 +15,11 @@ import type { Song } from '@types'
 import { ICONS } from '@utils/constants'
 
 import { useUser } from '@hooks'
-import { usePlayer } from '@hooks/zustand'
+import { usePlayer, useSound } from '@hooks/zustand'
 
-import { LikeButton, MediaItem } from '@common'
+import { MediaItem } from '@common'
 import { SongLoader } from '@common/icons'
 import { Slider } from '@common/radix-ui'
-
-import useSoundStore from '../../../hooks/zustand/useSound'
 
 interface PlayerContentProps {
   song: Song
@@ -57,7 +55,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     setId(nextSong)
   }
 
-  const { play, pause, sound } = useSoundStore({
+  const { play, pause, sound } = useSound({
     songUrl,
     onPlayNext
   }).getState()
@@ -132,7 +130,6 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
           ) : (
             <Image alt='liked' height={50} src={ICONS.liked} width={50} />
           )}
-          <LikeButton songId={song?.id} />
         </div>
       </div>
 

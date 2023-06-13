@@ -34,7 +34,12 @@ const Library: FC<LibraryProps> = ({ songs }) => {
     uploadModal.onOpen()
   }
 
-  const handleItemClick = (id: string) => checkUser(user, () => onPlay(id))
+  const handleItemClick = (id: string) => {
+    checkUser(user, () => {
+      localStorage.setItem('song-id', id)
+      onPlay(id)
+    })
+  }
 
   return (
     <div className='flex flex-col'>

@@ -11,7 +11,6 @@ const getSongs = async (): Promise<Song[]> => {
     await supabase.auth.getSession()
 
   if (sessionError) {
-    console.log(sessionError.message)
     return []
   }
 
@@ -22,7 +21,6 @@ const getSongs = async (): Promise<Song[]> => {
     .order('created_at', { ascending: false })
 
   if (error) {
-    console.log(error.message)
     return []
   }
 
