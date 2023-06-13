@@ -20,9 +20,6 @@
       "@common": ["./app/_common"],
       "@common/*": ["./app/_common/*"],
 
-      "@prismaClient": ["./prisma/client.ts"],
-      "@nextAuth": ["./pages/api/auth/[...nextauth].ts"],
-
       "@utils/*": ["./utils/*"],
       "@providers/*": ["./providers/*"],
       "@hooks": ["./hooks"],

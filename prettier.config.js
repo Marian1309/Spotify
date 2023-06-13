@@ -24,6 +24,7 @@ const baseRules = {
     '^@hooks|^@actions',
     '^@common',
     '^@styles',
+    '^./components',
     '^../(.*)$',
     '^./(.*)$'
   ],
