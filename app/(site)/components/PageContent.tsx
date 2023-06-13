@@ -6,7 +6,9 @@ import { twMerge } from 'tailwind-merge'
 
 import type { Song } from '@types'
 
-import { useOnPlay } from '@hooks'
+import { checkUser } from '@utils/helpers'
+
+import { useOnPlay, useUser } from '@hooks'
 import { usePlayer } from '@hooks/zustand'
 
 import SongItem from './SongItem'
@@ -18,10 +20,13 @@ interface PageContentProps {
 const PageContent: FC<PageContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs)
   const { setSongLoaded } = usePlayer()
+  const { user } = useUser()
 
   const handleClick = (id: string) => {
-    onPlay(id)
-    setSongLoaded(false)
+    checkUser(user, () => {
+      onPlay(id)
+      setSongLoaded(false)
+    })
   }
 
   if (songs.length === 0) {

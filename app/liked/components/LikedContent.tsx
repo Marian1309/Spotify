@@ -1,13 +1,10 @@
 'use client'
 
 import type { FC } from 'react'
-import { useEffect } from 'react'
-
-import { useRouter } from 'next/navigation'
 
 import type { Song } from '@types'
 
-import { useOnPlay, useUser } from '@hooks'
+import { useOnPlay } from '@hooks'
 
 import { LikeButton, MediaItem } from '@common'
 
@@ -16,16 +13,7 @@ interface LikedContentProps {
 }
 
 const LikedContent: FC<LikedContentProps> = ({ songs }) => {
-  const router = useRouter()
-
-  const { user } = useUser()
   const onPlay = useOnPlay(songs)
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/')
-    }
-  }, [user, router])
 
   if (songs?.length === 0) {
     return (

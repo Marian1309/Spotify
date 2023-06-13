@@ -8,6 +8,8 @@ import { TbPlaylist } from 'react-icons/tb'
 
 import type { Song } from '@types'
 
+import { checkUser } from '@utils/helpers'
+
 import { useOnPlay, useUser } from '@hooks'
 import { useAuthModal, useUploadModal } from '@hooks/zustand'
 
@@ -23,14 +25,16 @@ const Library: FC<LibraryProps> = ({ songs }) => {
   const { user } = useUser()
   const onPlay = useOnPlay(songs)
 
-  const onClick = () => {
+  const handleUploadClick = () => {
     if (!user) {
-      toast.error('You need to sign in in order to add a song to your library')
+      toast.error('Please login in order to upload your song')
       return authModal.onOpen()
     }
 
     uploadModal.onOpen()
   }
+
+  const handleItemClick = (id: string) => checkUser(user, () => onPlay(id))
 
   return (
     <div className='flex flex-col'>
@@ -42,18 +46,14 @@ const Library: FC<LibraryProps> = ({ songs }) => {
 
         <AiOutlinePlus
           className='text-neutral-400 cursor-pointer hover:text-white transition-colors'
-          onClick={onClick}
+          onClick={handleUploadClick}
           size={20}
         />
       </div>
 
       <div className='flex flex-col gap-y-4 mt-4 px-3 last:mb-4'>
         {songs.map((song) => (
-          <MediaItem
-            data={song}
-            key={song.id}
-            onClick={(id: string) => onPlay(id)}
-          />
+          <MediaItem data={song} key={song.id} onClick={handleItemClick} />
         ))}
       </div>
     </div>

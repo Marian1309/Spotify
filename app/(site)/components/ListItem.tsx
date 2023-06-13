@@ -7,6 +7,10 @@ import { useRouter } from 'next/navigation'
 
 import { FaPlay } from 'react-icons/fa'
 
+import { checkUser } from '@utils/helpers'
+
+import { useUser } from '@hooks'
+
 interface ListItemProps {
   image: string
   name: string
@@ -15,12 +19,15 @@ interface ListItemProps {
 
 const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
   const { push } = useRouter()
+  const { user } = useUser()
+
+  const handleToLikedRoute = () => checkUser(user, () => push(href))
 
   return (
     <button
       className='relative group flex items-center rounded-md overflow-hidden
       gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition pr-4'
-      onClick={() => push(href)}
+      onClick={handleToLikedRoute}
     >
       <div className='relative max-h-[64px] max-w-[64px]'>
         <Image alt='liked' height={64} src={image} width={64} />

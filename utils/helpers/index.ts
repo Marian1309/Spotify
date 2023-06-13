@@ -1,3 +1,6 @@
+import type { User } from '@supabase/auth-helpers-nextjs'
+import { toast } from 'react-hot-toast'
+
 const getPath = (file: File) => {
   const path = URL.createObjectURL(file)
   return path
@@ -17,6 +20,14 @@ const getImageDimensions = (file: File, callback: Function) => {
   }
 
   img.src = URL.createObjectURL(file)
+}
+
+export const checkUser = (user: User | null, fn: () => void) => {
+  if (user) {
+    fn()
+  } else {
+    toast.error('Please login in order to listen to music')
+  }
 }
 
 export { getPath, getImageDimensions }

@@ -71,7 +71,7 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
           </div>
         </Box>
 
-        <Box className='sm:max-h-[calc(100vh-210.5px)] overflow-y-auto last:mb-[80px]'>
+        <Box className='sm:h-[calc(100vh-210.5px)] mili:h-[calc(100vh-164px)] overflow-y-auto last:mb-[80px]'>
           <Library songs={songs} />
         </Box>
       </div>
