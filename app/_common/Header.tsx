@@ -73,12 +73,13 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
   const headerActions = {
     login: [
       {
-        className: 'bg-transparent text-white font-medium whitespace-nowrap',
+        className:
+          'bg-transparent text-white font-medium whitespace-nowrap px-6 py-2',
         onClick: onOpen,
         title: 'Sign Up'
       },
       {
-        className: 'bg-white px-6 py-[6px]',
+        className: 'bg-white px-6 py-2',
         onClick: onOpen,
         title: 'Log In'
       }
