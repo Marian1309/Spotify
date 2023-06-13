@@ -2,7 +2,7 @@
 
 import type { FC } from 'react'
 
-import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 import type { Song } from '@types'
 
@@ -32,7 +32,7 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
 
   return (
     <div
-      className={clsx(
+      className={twMerge(
         `grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4
         xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6`
       )}
