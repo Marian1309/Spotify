@@ -32,7 +32,7 @@ const MediaItem: FC<MediaItemProps> = ({ data, onClick }) => {
     >
       <div className='rounded-md overflow-hidden pt-2'>
         <LazyLoadImage
-          alt={data.title}
+          alt={data?.title}
           height={50}
           src={imageUrl || ICONS.liked}
           width={50}
@@ -40,9 +40,9 @@ const MediaItem: FC<MediaItemProps> = ({ data, onClick }) => {
       </div>
 
       <div className='flex flex-col gap-y-1 overflow-hidden'>
-        <p className='text-white truncate'>{data.title}</p>
+        <p className='text-white truncate'>{data?.title}</p>
 
-        <p className='text-sm truncate text-neutral-400'>{data.author}</p>
+        <p className='text-sm truncate text-neutral-400'>{data?.author}</p>
       </div>
     </div>
   )

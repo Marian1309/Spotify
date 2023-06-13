@@ -5,10 +5,10 @@ import { useEffect } from 'react'
 
 import Image from 'next/image'
 
+import { toast } from 'react-hot-toast'
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2'
-import useSound from 'use-sound'
 
 import type { Song } from '@types'
 
@@ -21,6 +21,8 @@ import { LikeButton, MediaItem } from '@common'
 import { SongLoader } from '@common/icons'
 import { Slider } from '@common/radix-ui'
 
+import useSoundStore from '../../../hooks/zustand/useSound'
+
 interface PlayerContentProps {
   song: Song
   songUrl: string
@@ -30,7 +32,6 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   const {
     ids,
     isPlaying,
-    setIsPlaying,
     activeId,
     setId,
     setSongLoaded,
@@ -39,46 +40,6 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     volume
   } = usePlayer()
   const { user } = useUser()
-
-  const [play, { pause, sound }] = useSound(songUrl, {
-    volume,
-    onplay: () => {
-      setIsPlaying(true)
-    },
-    onend: () => {
-      setIsPlaying(false)
-      onPlayNext()
-    },
-    onpause: () => {
-      setIsPlaying(false)
-    },
-    onload: () => {
-      setSongLoaded(true)
-    },
-    format: ['mp3']
-  })
-
-  useEffect(() => {
-    sound?.play()
-
-    return () => {
-      sound?.unload()
-    }
-  }, [sound])
-
-  useEffect(() => {
-    if (!user) {
-      setSongLoaded(true)
-      setId('')
-    }
-  }, [user])
-
-  const icon = isPlaying ? (
-    <BsPauseFill className='text-black' size={30} />
-  ) : (
-    <BsPlayFill className='text-black relative left-[1.5px]' size={30} />
-  )
-  const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
   const onPlayNext = () => {
     if (ids.length === 0) {
@@ -94,6 +55,34 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
 
     setId(nextSong)
   }
+
+  const { play, pause, sound } = useSoundStore({
+    songUrl,
+    onPlayNext
+  }).getState()
+
+  useEffect(() => {
+    sound?.play()
+
+    return () => {
+      sound?.unload()
+    }
+  }, [sound])
+
+  useEffect(() => {
+    if (!user) {
+      setSongLoaded(true)
+      setId('')
+      pause()
+    }
+  }, [user])
+
+  const icon = isPlaying ? (
+    <BsPauseFill className='text-black' size={30} />
+  ) : (
+    <BsPlayFill className='text-black relative left-[1.5px]' size={30} />
+  )
+  const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
   const onPlayPrevious = () => {
     if (ids.length === 0) {
@@ -111,7 +100,10 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   }
 
   const handlePlay = () => {
-    if (!isPlaying) {
+    if (!user) {
+      return toast.error('Please login in order to listen to music')
+    }
+    if (!isPlaying && user) {
       play()
     } else {
       pause()
@@ -130,7 +122,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     <div className='h-full flex items-center justify-evenly'>
       <div className='w-full flex justify-start'>
         <div className='flex items-center gap-x-4'>
-          {song ? (
+          {user ? (
             <MediaItem data={song} />
           ) : (
             <Image alt='liked' height={50} src={ICONS.liked} width={50} />
