@@ -22,7 +22,7 @@ export type Song = {
 
 export type Route = {
   icon: IconType
-  label: 'Home' | 'Search'
+  label: 'Home' | 'Search' | 'Library'
   active: boolean
-  href: '/' | '/search'
+  href: '/' | '/search' | '/library'
 }

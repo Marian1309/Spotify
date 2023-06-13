@@ -7,6 +7,9 @@ import { usePathname } from 'next/navigation'
 
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
+import { MdLibraryMusic } from 'react-icons/md'
+import { twMerge } from 'tailwind-merge'
+import uniqid from 'uniqid'
 
 import type { Route, Song } from '@types'
 
@@ -27,7 +30,7 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
       {
         icon: HiHome,
         label: 'Home',
-        active: pathname !== '/search',
+        active: pathname === '/',
         href: '/'
       },
       {
@@ -40,18 +43,35 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
     [pathname]
   ) satisfies Route[]
 
+  const id = uniqid()
+
   return (
     <div className='flex'>
-      <div className='hidden h-full w-[300px] flex-col gap-y-[8.3px] p-2 md:flex'>
+      <div
+        className={twMerge(
+          'hidden h-full w-[300px] flex-col gap-y-[8.3px] p-2 md:flex',
+          pathname === '/library' && 'flex w-full'
+        )}
+      >
         <Box>
-          <div className='flex flex-col gap-y-4 px-5 py-4'>
+          <div className='flex sm:flex-col gap-y-4 px-5 py-4 mili:flex-row'>
             {routes.map((route) => (
               <SidebarItem key={route.label} {...route} />
             ))}
+
+            <div className='mili:block md:hidden'>
+              <SidebarItem
+                active={pathname === '/library'}
+                href='/library'
+                icon={MdLibraryMusic}
+                key={id}
+                label='Library'
+              />
+            </div>
           </div>
         </Box>
 
-        <Box className='h-[calc(100vh-210.5px)] overflow-y-auto'>
+        <Box className='sm:max-h-[calc(100vh-210.5px)] overflow-y-auto last:mb-[80px]'>
           <Library songs={songs} />
         </Box>
       </div>

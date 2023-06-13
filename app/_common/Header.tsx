@@ -11,6 +11,7 @@ import { toast } from 'react-hot-toast'
 import type { IconType } from 'react-icons'
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
+import { MdLibraryMusic } from 'react-icons/md'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
@@ -64,7 +65,8 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
 
   const mobileIcons = [
     { icon: HiHome, href: '/' },
-    { icon: BiSearch, href: '/search' }
+    { icon: BiSearch, href: '/search' },
+    { icon: MdLibraryMusic, href: '/library' }
   ] satisfies {
     icon: IconType
     href: string

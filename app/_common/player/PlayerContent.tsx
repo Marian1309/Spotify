@@ -37,7 +37,8 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     setSongLoaded,
     setVolume,
     songLoaded,
-    volume
+    volume,
+    setIsPlaying
   } = usePlayer()
   const { user } = useUser()
 
@@ -74,6 +75,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
       setSongLoaded(true)
       setId('')
       pause()
+      setIsPlaying(false)
     }
   }, [user])
 
@@ -103,10 +105,13 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     if (!user) {
       return toast.error('Please login in order to listen to music')
     }
+
     if (!isPlaying && user) {
-      play()
-    } else {
-      pause()
+      return play()
+    }
+
+    if (isPlaying && user) {
+      return pause()
     }
   }
 
