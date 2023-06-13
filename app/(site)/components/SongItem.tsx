@@ -5,8 +5,9 @@ import type { FC } from 'react'
 import type { Song } from '@types'
 
 import { ICONS } from '@utils/constants'
+import { checkUser } from '@utils/helpers'
 
-import { useLoadImage } from '@hooks'
+import { useLoadImage, useUser } from '@hooks'
 
 import { LazyLoadImage } from '@common'
 import { PlayButton } from '@common/icons'
@@ -18,17 +19,20 @@ interface SongItemProps {
 
 const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
   const imagePath = useLoadImage(data)
+  const { user } = useUser()
 
-  const handleClick = () => {
-    localStorage.setItem('song-id', data.id)
-    onClick(data.id)
+  const handleSongPlaying = () => {
+    checkUser(user, () => {
+      localStorage.setItem('song-id', data.id)
+      onClick(data.id)
+    })
   }
 
   return (
     <div
       className='relative group flex-center flex-col rounded-md overflow-hidden h-full
       bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition-colors p-3'
-      onClick={handleClick}
+      onClick={handleSongPlaying}
     >
       <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>
         <LazyLoadImage alt='song' src={imagePath || ICONS.liked} />
