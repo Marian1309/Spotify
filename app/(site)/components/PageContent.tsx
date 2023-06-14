@@ -2,8 +2,6 @@
 
 import type { FC } from 'react'
 
-import { twMerge } from 'tailwind-merge'
-
 import type { Song } from '@types'
 
 import { checkUser } from '@utils/helpers'
@@ -37,10 +35,8 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
 
   return (
     <div
-      className={twMerge(
-        `grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4
-        xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6`
-      )}
+      className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4
+      xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-6 mili:last:mb-[100px] md:last:mb-0`}
     >
       {songs.map((song) => (
         <SongItem

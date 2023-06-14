@@ -17,7 +17,7 @@ const Search = async ({ searchParams }: SearchProps) => {
 
   return (
     <div
-      className='bg-neutral-900 sm:rounded-lg mili:rounded-none w-full overflow-y-auto
+      className='bg-neutral-900 md:rounded-lg mili:rounded-none w-full overflow-y-auto
       overflow-hidden mili:h-full sm:h-[calc(100vh-94px)]'
     >
       <Header>

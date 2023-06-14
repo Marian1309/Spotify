@@ -104,6 +104,10 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
       return toast.error('Please login in order to listen to music')
     }
 
+    if (user && !activeId) {
+      return toast.error('Choose a song to listen to')
+    }
+
     if (!isPlaying && user) {
       return play()
     }
