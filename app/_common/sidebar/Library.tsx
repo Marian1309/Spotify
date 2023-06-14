@@ -37,8 +37,8 @@ const Library: FC<LibraryProps> = ({ songs }) => {
   const handleItemClick = (id: string) => {
     checkUser(user, () => {
       const currentSong = songs.find((song) => song.id === id)
-      document.title = currentSong?.title as string
-      localStorage.setItem('song-id', id)
+      document.title = `${currentSong?.title} | Spotify`
+
       onPlay(id)
     })
   }
