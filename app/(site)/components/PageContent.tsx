@@ -22,6 +22,8 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
 
   const handleClick = (id: string) => {
     checkUser(user, () => {
+      const currentSong = songs.find((song) => song.id === id)
+      document.title = currentSong?.title as string
       onPlay(id)
       setSongLoaded(false)
     })
