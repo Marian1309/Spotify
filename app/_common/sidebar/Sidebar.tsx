@@ -13,7 +13,8 @@ import uniqid from 'uniqid'
 
 import type { Route, Song } from '@types'
 
-import Box from './Box'
+import Box from '../Box'
+
 import Library from './Library'
 import SidebarItem from './SidebarItem'
 
