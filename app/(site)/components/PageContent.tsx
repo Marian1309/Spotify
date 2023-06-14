@@ -24,6 +24,7 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
     checkUser(user, () => {
       const currentSong = songs.find((song) => song.id === id)
       document.title = currentSong?.title as string
+      localStorage.setItem('song-id', id)
       onPlay(id)
       setSongLoaded(false)
     })

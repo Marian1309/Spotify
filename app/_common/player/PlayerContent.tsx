@@ -64,7 +64,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     sound?.play()
 
     return () => {
-      sound?.unload()
+      sound?.stop()
     }
   }, [sound])
 
