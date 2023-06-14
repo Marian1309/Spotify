@@ -3,9 +3,8 @@
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/navigation'
-
 import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
@@ -18,8 +17,8 @@ interface LikeButtonProps {
 
 const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false)
-  const { refresh } = useRouter()
   const { supabaseClient } = useSessionContext()
+  const queryClient = useQueryClient()
 
   const authModal = useAuthModal()
   const { user } = useUser()
@@ -81,7 +80,7 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
       }
     }
 
-    refresh()
+    queryClient.invalidateQueries(['liked'])
   }
 
   return (

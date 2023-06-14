@@ -3,6 +3,7 @@ import { Figtree } from 'next/font/google'
 
 import type { Children } from '@types'
 
+import TanstackReactQueryProvider from '@providers/@tanstack-query'
 import ModalProvider from '@providers/_modal'
 import UserProvider from '@providers/_user'
 import HotToastProvider from '@providers/react-hot-toast'
@@ -35,19 +36,21 @@ const RootLayout = async ({ children }: Children) => {
   const userSongs = await getSongsById()
 
   return (
-    <html lang='en'>
-      <body className={figTree.className}>
-        <HotToastProvider />
+    <SupabaseProvider>
+      <TanstackReactQueryProvider>
+        <UserProvider>
+          <html lang='en'>
+            <body className={figTree.className}>
+              <HotToastProvider />
 
-        <SupabaseProvider>
-          <UserProvider>
-            <ModalProvider />
-            <Sidebar songs={userSongs}>{children}</Sidebar>
-            <Player />
-          </UserProvider>
-        </SupabaseProvider>
-      </body>
-    </html>
+              <ModalProvider />
+              <Sidebar songs={userSongs}>{children}</Sidebar>
+              <Player />
+            </body>
+          </html>
+        </UserProvider>
+      </TanstackReactQueryProvider>
+    </SupabaseProvider>
   )
 }
 

@@ -1,15 +1,51 @@
-import { ICONS } from '@utils/constants'
+'use client'
 
-import { getLikedSongs } from '@actions'
+import { useEffect } from 'react'
+
+import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+
+import type { Song } from '@types'
+
+import { ICONS } from '@utils/constants'
 
 import { Header, LazyLoadImage } from '@common'
 
 import { LikedContent } from './components'
 
-export const revalidate = 0
+const Liked = () => {
+  const queryClient = useQueryClient()
+  const { supabaseClient } = useSessionContext()
+  const { data: songs } = useQuery({
+    queryKey: ['liked'],
+    queryFn: async () => {
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession()
 
-const Liked = async () => {
-  const songs = await getLikedSongs()
+      const { data, error } = await supabaseClient
+        .from('liked_songs')
+        .select('*, songs(*)')
+        .eq('user_id', session?.user.id)
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        return []
+      }
+
+      if (!data) {
+        return []
+      }
+
+      return data.map((song) => ({
+        ...song.songs
+      }))
+    }
+  })
+
+  useEffect(() => {
+    queryClient.invalidateQueries(['liked'])
+  }, [songs?.length])
 
   return (
     <div
@@ -40,7 +76,7 @@ const Liked = async () => {
       </Header>
 
       <div className='overflow-y-auto'>
-        <LikedContent songs={songs} />
+        <LikedContent songs={songs as Song[]} />
       </div>
     </div>
   )

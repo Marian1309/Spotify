@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 
 import Image from 'next/image'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
@@ -17,7 +18,7 @@ import { ICONS } from '@utils/constants'
 import { useUser } from '@hooks'
 import { usePlayer, useSound } from '@hooks/zustand'
 
-import { MediaItem } from '@common'
+import { LikeButton, MediaItem } from '@common'
 import { SongLoader } from '@common/icons'
 import { Slider } from '@common/radix-ui'
 
@@ -39,6 +40,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     setIsPlaying
   } = usePlayer()
   const { user } = useUser()
+  const queryClient = useQueryClient()
 
   const onPlayNext = () => {
     if (ids.length === 0) {
@@ -62,6 +64,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
 
   useEffect(() => {
     sound?.play()
+    queryClient.invalidateQueries(['liked'])
 
     if (sound === null) {
       setSongLoaded(false)
@@ -134,7 +137,10 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
       <div className='w-full flex justify-start'>
         <div className='flex items-center gap-x-4'>
           {user ? (
-            <MediaItem data={song} />
+            <>
+              <MediaItem data={song} />
+              <LikeButton songId={song?.id} />
+            </>
           ) : (
             <Image
               alt='liked'
