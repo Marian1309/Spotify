@@ -63,8 +63,14 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   useEffect(() => {
     sound?.play()
 
+    if (sound === null) {
+      setSongLoaded(false)
+    }
+
+    console.log(sound)
+
     return () => {
-      sound?.stop()
+      sound?.unload()
     }
   }, [sound])
 
@@ -109,11 +115,11 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     if (!isPlaying && user) {
-      return play()
+      play()
     }
 
     if (isPlaying && user) {
-      return pause()
+      pause()
     }
   }
 
