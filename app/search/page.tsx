@@ -18,7 +18,7 @@ const Search = async ({ searchParams }: SearchProps) => {
   return (
     <div
       className='bg-neutral-900 md:rounded-lg mili:rounded-none w-full overflow-y-auto
-      overflow-hidden mili:h-full sm:h-[calc(100vh-94px)]'
+      overflow-hidden mili:h-[calc(100vh-80px)] md:h-[calc(100vh-94px)] mili:last:mb-[80px] md:last:mb-0'
     >
       <Header>
         <div className='mb-2 flex flex-col gap-y-6'>
