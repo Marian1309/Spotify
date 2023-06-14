@@ -7,6 +7,7 @@ import type { Song } from '@types'
 import { checkUser } from '@utils/helpers'
 
 import { useOnPlay, useUser } from '@hooks'
+import { usePlayer } from '@hooks/zustand'
 
 import SongItem from './SongItem'
 
@@ -17,13 +18,16 @@ interface PageContentProps {
 const PageContent: FC<PageContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs)
   const { user } = useUser()
+  const { setId } = usePlayer()
 
   const handleClick = (id: string) => {
     checkUser(user, () => {
       const currentSong = songs.find((song) => song.id === id)
       document.title = `${currentSong?.title} | Spotify`
+      localStorage.setItem('song-id', id)
 
       onPlay(id)
+      setId(id)
     })
   }
 

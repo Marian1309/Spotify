@@ -30,8 +30,7 @@ const useSound = ({ songUrl, onPlayNext }: any): StoreApi<SoundStore> => {
     onload: () => {
       setSongLoaded(true)
     },
-    format: ['mp3'],
-    soundEnabled: false
+    format: ['mp3']
   })
 
   return create(() => ({

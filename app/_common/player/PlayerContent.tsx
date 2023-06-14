@@ -67,8 +67,6 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
       setSongLoaded(false)
     }
 
-    console.log(sound)
-
     return () => {
       sound?.unload()
     }
@@ -115,11 +113,11 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     if (!isPlaying && user) {
-      play()
+      return play()
     }
 
     if (isPlaying && user) {
-      pause()
+      return pause()
     }
   }
 
@@ -138,7 +136,13 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
           {user ? (
             <MediaItem data={song} />
           ) : (
-            <Image alt='liked' height={50} src={ICONS.liked} width={50} />
+            <Image
+              alt='liked'
+              height={50}
+              priority
+              src={ICONS.liked}
+              width={50}
+            />
           )}
         </div>
       </div>
