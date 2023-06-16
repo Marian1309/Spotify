@@ -4,7 +4,10 @@ import type { FC } from 'react'
 
 import type { Song } from '@types'
 
-import { useOnPlay } from '@hooks'
+import { checkUser } from '@utils/helpers'
+
+import { useOnPlay, useUser } from '@hooks'
+import { usePlayer } from '@hooks/zustand'
 
 import { LikeButton, MediaItem } from '@common'
 
@@ -14,6 +17,18 @@ interface LikedContentProps {
 
 const LikedContent: FC<LikedContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs)
+  const { setId } = usePlayer()
+  const { user } = useUser()
+
+  const handleClick = (id: string) => {
+    checkUser(user, () => {
+      const currentSong = songs.find((song) => song.id === id)
+      document.title = `${currentSong?.title} | Spotify`
+
+      onPlay(id)
+      setId(id)
+    })
+  }
 
   if (songs?.length === 0) {
     return (
@@ -28,7 +43,7 @@ const LikedContent: FC<LikedContentProps> = ({ songs }) => {
       {songs?.map((song) => (
         <div className='flex items-center gap-x-4 w-full' key={song.id}>
           <div className='flex-1'>
-            <MediaItem data={song} onClick={(id: string) => onPlay(id)} />
+            <MediaItem data={song} onClick={handleClick} />
           </div>
 
           <LikeButton songId={song.id} />

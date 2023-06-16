@@ -4,7 +4,10 @@ import type { FC } from 'react'
 
 import type { Song } from '@types'
 
-import { useOnPlay } from '@hooks'
+import { checkUser } from '@utils/helpers'
+
+import { useOnPlay, useUser } from '@hooks'
+import { usePlayer } from '@hooks/zustand'
 
 import { LikeButton } from '@common'
 import MediaItem from '@common/MediaItem'
@@ -15,6 +18,18 @@ interface SearchContentProps {
 
 const SearchContent: FC<SearchContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs)
+  const { setId } = usePlayer()
+  const { user } = useUser()
+
+  const handleClick = (id: string) => {
+    checkUser(user, () => {
+      const currentSong = songs.find((song) => song.id === id)
+      document.title = `${currentSong?.title} | Spotify`
+
+      onPlay(id)
+      setId(id)
+    })
+  }
 
   if (songs.length === 0) {
     return (
@@ -32,7 +47,7 @@ const SearchContent: FC<SearchContentProps> = ({ songs }) => {
           key={song.id}
         >
           <div className='flex-1 py-2'>
-            <MediaItem data={song} onClick={(id: string) => onPlay(id)} />
+            <MediaItem data={song} onClick={handleClick} />
           </div>
 
           <LikeButton songId={song.id} />

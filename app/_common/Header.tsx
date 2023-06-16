@@ -47,8 +47,8 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut()
 
-    localStorage.removeItem('song-id')
     setId('')
+    document.title = 'Spotify'
 
     push('/')
     refresh()
