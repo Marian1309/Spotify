@@ -65,7 +65,6 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   useEffect(() => {
     sound?.play()
     queryClient.invalidateQueries(['liked'])
-    console.clear()
 
     if (sound === null) {
       setSongLoaded(false)

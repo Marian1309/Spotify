@@ -11,7 +11,7 @@ import type { Song } from '@types'
 import { checkUser } from '@utils/helpers'
 
 import { useOnPlay, useUser } from '@hooks'
-import { useAuthModal, useUploadModal } from '@hooks/zustand'
+import { useAuthModal, usePlayer, useUploadModal } from '@hooks/zustand'
 
 import MediaItem from '../MediaItem'
 
@@ -24,6 +24,7 @@ const Library: FC<LibraryProps> = ({ songs }) => {
   const uploadModal = useUploadModal()
   const { user } = useUser()
   const onPlay = useOnPlay(songs)
+  const { setId } = usePlayer()
 
   const handleUploadClick = () => {
     if (!user) {
@@ -40,6 +41,7 @@ const Library: FC<LibraryProps> = ({ songs }) => {
       document.title = `${currentSong?.title} | Spotify`
 
       onPlay(id)
+      setId(id)
     })
   }
 
