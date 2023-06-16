@@ -55,6 +55,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     setId(nextSong)
+    document.title = "Spotify"
   }
 
   const { play, pause, sound } = useSound({
@@ -104,6 +105,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     setId(previousSong)
+    document.title = "Spotify"
   }
 
   const handlePlay = () => {
