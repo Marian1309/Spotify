@@ -142,7 +142,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
             <>
               <MediaItem
                 data={song}
-                playerStyles='mili:w-[120px] sm:w-full atom:w-[70px]'
+                playerStyles='mili:max-w-[120px] sm:max-w-full atom:max-w-[70px]'
               />
               <LikeButton songId={song?.id} />
             </>
