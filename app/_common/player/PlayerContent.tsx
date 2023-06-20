@@ -55,7 +55,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     setId(nextSong)
-    document.title = "Spotify"
+    document.title = 'Spotify'
   }
 
   const { play, pause, sound } = useSound({
@@ -105,7 +105,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     setId(previousSong)
-    document.title = "Spotify"
+    document.title = 'Spotify'
   }
 
   const handlePlay = () => {
@@ -137,10 +137,13 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   return (
     <div className='h-full flex items-center justify-evenly'>
       <div className='w-full flex justify-start'>
-        <div className='flex items-center gap-x-4'>
+        <div className='flex items-center mili:gap-x-2 sm:gap-x-4'>
           {user ? (
             <>
-              <MediaItem data={song} />
+              <MediaItem
+                data={song}
+                playerStyles='mili:w-[120px] sm:w-full atom:w-[70px]'
+              />
               <LikeButton songId={song?.id} />
             </>
           ) : (
@@ -155,7 +158,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
         </div>
       </div>
 
-      <div className='h-full flex justify-center items-center w-full max-w-[722px] gap-x-6'>
+      <div className='h-full flex justify-center items-center w-full max-w-[722px] mini:gap-x-6 atom:gap-x-2'>
         {songLoaded ? (
           <>
             <AiFillStepBackward
@@ -184,7 +187,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
         )}
       </div>
 
-      <div className='sm:flex w-full pr-2 mili:hidden justify-end'>
+      <div className='sm:flex w-full pr-2 hidden justify-end'>
         <div className='flex items-center gap-x-2 w-[120px]'>
           <VolumeIcon
             className='cursor-pointer'

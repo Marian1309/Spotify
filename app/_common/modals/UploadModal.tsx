@@ -188,7 +188,9 @@ const UploadModal: FC = () => {
         )}
 
         <div>
-          <div className='text-lg pb-1'>Select a song</div>
+          <div className='mili:text-lg atom:text-sm sm:pb-1 atom:pb-4'>
+            Select a song
+          </div>
 
           <Input
             accept='.mp3'
@@ -216,7 +218,7 @@ const UploadModal: FC = () => {
         )}
 
         <div>
-          <div className='pb-1 text-lg'>
+          <div className='mili:text-lg atom:text-sm sm:pb-1 atom:pb-4'>
             Select a square photo (example: 200x200)
           </div>
 
@@ -241,9 +243,8 @@ const UploadModal: FC = () => {
             <h3>Image preview</h3>
             <LazyLoadImage
               alt='preview'
-              height={200}
+              className='atom:h-[100px] atom:w-[100px] mili:h-[200px] mili:w-[200px]'
               src={previewImage}
-              width={200}
             />
           </>
         )}

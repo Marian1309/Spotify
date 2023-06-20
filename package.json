@@ -8,7 +8,6 @@
     "url": "https://github.com/Marian1309"
   },
   "scripts": {
-    "commit": "pnpm lint && pnpm format && git add . && gitmoji -c && git push origin master && clear",
     "delete": "rimraf node_modules && rimraf .next",
     "dev": "next dev",
     "build": "next build",

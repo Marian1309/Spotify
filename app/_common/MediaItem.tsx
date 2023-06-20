@@ -2,6 +2,8 @@
 
 import type { FC } from 'react'
 
+import { twMerge } from 'tailwind-merge'
+
 import type { Song } from '@types'
 
 import { ICONS } from '@utils/constants'
@@ -13,9 +15,10 @@ import { LazyLoadImage } from '@common'
 interface MediaItemProps {
   data: Song
   onClick?: (id: string) => void
+  playerStyles?: string
 }
 
-const MediaItem: FC<MediaItemProps> = ({ data, onClick }) => {
+const MediaItem: FC<MediaItemProps> = ({ data, onClick, playerStyles }) => {
   const imageUrl = useLoadImage(data)
 
   const handleClick = () => {
@@ -39,10 +42,17 @@ const MediaItem: FC<MediaItemProps> = ({ data, onClick }) => {
         />
       </div>
 
-      <div className='flex flex-col gap-y-1 overflow-hidden'>
+      <div
+        className={twMerge(
+          'flex flex-col gap-y-1 overflow-hidden',
+          playerStyles
+        )}
+      >
         <p className='text-white truncate'>{data?.title}</p>
 
-        <p className='text-sm truncate text-neutral-400'>{data?.author}</p>
+        <p className='text-sm truncate max-w-[190px] text-neutral-400'>
+          {data?.author}
+        </p>
       </div>
     </div>
   )
