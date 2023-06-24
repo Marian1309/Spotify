@@ -37,7 +37,7 @@ type Action = {
 }
 
 const Header: FC<HeaderProps> = ({ children, className }) => {
-  const { back, forward, refresh, push } = useRouter()
+  const { back, forward, refresh, replace } = useRouter()
   const supabaseClient = useSupabaseClient()
 
   const { onOpen } = useAuthModal()
@@ -50,7 +50,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
     setId('')
     document.title = 'Spotify'
 
-    push('/')
+    replace('/')
     refresh()
 
     if (error) {
