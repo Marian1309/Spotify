@@ -1,21 +1,51 @@
-### Prerequisites
+# [Spotify]()
 
-**Node version >= 18.0.0**
+> **Warning**
+> This project is still in development and is not ready for production use.
 
-### Cloning the repository
+#
 
-```shell
-git clone https://github.com/Marian1309/Spotify
+## Tech Stack
+
+- [Next.js](https://nextjs.org)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Supabase](https://supabase.com)
+
+#
+
+## Installation
+
+### 1. Install PNPM
+
+```bash
+npm i pnpm -g
 ```
 
-### Install packages
+### 2. Clone the repository
 
-```shell
-npm i
+```bash
+git clone https://github.com/Marian1309/Nextjs
 ```
 
-### Start the app
+### 3. Install dependencies
 
-```shell
-npm run dev
+```bash
+pnpm install
+```
+
+### 4. Create a `.env` file
+
+Create a `.env` file in the root directory and add the environment variables as shown in the `.env.example` file.
+
+### 5. Push database
+
+```bash
+pnpm run db:push
+```
+
+### 6. Run the application
+
+```bash
+pnpm run dev
 ```

@@ -15,22 +15,11 @@
     "jsx": "preserve",
     "incremental": true,
     "plugins": [{ "name": "next" }],
+
+    "removeComments": true,
     "baseUrl": ".",
     "paths": {
-      "@common": ["./app/_common"],
-      "@common/*": ["./app/_common/*"],
-
-      "@utils/*": ["./utils/*"],
-      "@providers/*": ["./providers/*"],
-      "@hooks": ["./hooks"],
-      "@hooks/zustand": ["./hooks/zustand"],
-      "@context": ["./context"],
-      "@actions": ["./actions"],
-
-      "@types": ["./@types.ts"],
-      "db_types": ["./@db_types.ts"],
-
-      "@styles/*": ["./styles/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
