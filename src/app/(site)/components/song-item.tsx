@@ -6,10 +6,10 @@ import type { Song } from '@/types'
 
 import { ICONS } from '@/lib/constants'
 
+import { useLoadImage } from '@/hooks'
+
 import { LazyLoadImage } from '@/components/common'
 import { PlayButton } from '@/components/icons'
-
-import { useLoadImage } from '@/hooks'
 
 interface SongItemProps {
   onClick: () => void

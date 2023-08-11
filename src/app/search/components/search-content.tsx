@@ -6,11 +6,10 @@ import type { Song } from '@/types'
 
 import { checkUser } from '@/lib/utils'
 
+import { useOnPlay, useUser } from '@/hooks'
 import { usePlayer } from '@/hooks/zustand'
 
 import { LikeButton, MediaItem } from '@/components/common'
-
-import { useOnPlay, useUser } from '@/hooks'
 
 interface SearchContentProps {
   songs: Song[]

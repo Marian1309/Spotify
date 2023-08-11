@@ -15,13 +15,12 @@ import type { Song } from '@/types'
 
 import { ICONS } from '@/lib/constants'
 
+import { useUser } from '@/hooks'
 import { usePlayer, useSound } from '@/hooks/zustand'
 
 import { LikeButton, MediaItem } from '../common'
 import { SongLoader } from '../icons'
 import { Slider } from '../radix-ui'
-
-import { useUser } from '@/hooks'
 
 interface PlayerContentProps {
   song: Song

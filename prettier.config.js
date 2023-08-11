@@ -21,7 +21,7 @@ const baseRules = {
     '^@/stores/(.*)$',
     '^@/actions$',
     '^@/context$',
-    '^@/hooks/(.*)$',
+    '^@/hooks',
     '^(@/providers/(.*)$)|^(@/providers$)',
     '^@/components/(.*)$',
     '^@/app/(.*)$',

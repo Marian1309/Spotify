@@ -5,10 +5,11 @@ import type { FC } from 'react'
 import { LazyLoadImage } from '.'
 import { twMerge } from 'tailwind-merge'
 
+import type { Song } from '@/types'
+
 import { ICONS } from '@/lib/constants'
 
 import { useLoadImage } from '@/hooks'
-import type { Song } from '@/types'
 
 interface MediaItemProps {
   data: Song

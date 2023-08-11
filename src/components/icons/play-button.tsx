@@ -1,8 +1,9 @@
+import { memo } from 'react'
 import type { FC } from 'react'
 
 import { FaPlay } from 'react-icons/fa'
 
-const PlayButton: FC = () => {
+const PlayButton: FC = memo(() => {
   return (
     <button
       className='transition-opacity flex items-center justify-center opacity-0 rounded-full bg-green-500 p-4
@@ -11,6 +12,6 @@ const PlayButton: FC = () => {
       <FaPlay className='text-black' />
     </button>
   )
-}
+})
 
 export default PlayButton

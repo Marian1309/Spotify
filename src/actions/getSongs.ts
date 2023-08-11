@@ -1,10 +1,12 @@
+import { cache } from 'react'
+
 import { cookies } from 'next/headers'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 
-import type { Song } from '@types'
+import type { Song } from '@/types'
 
-const getSongs = async (): Promise<Song[]> => {
+const getSongs = cache(async (): Promise<Song[]> => {
   const supabase = createServerComponentClient({ cookies })
 
   const { data, error } = await supabase
@@ -17,6 +19,6 @@ const getSongs = async (): Promise<Song[]> => {
   }
 
   return (data as Song[]) ?? []
-}
+})
 
 export default getSongs

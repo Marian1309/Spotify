@@ -1,15 +1,16 @@
 'use client'
 
 import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
-import { useUser } from '@/hooks'
 import { useAuthModal } from '@/hooks/zustand'
+
+import { useUser } from '@/hooks'
 
 interface LikeButtonProps {
   songId: string
@@ -17,9 +18,9 @@ interface LikeButtonProps {
 
 const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false)
+
   const { supabaseClient } = useSessionContext()
   const queryClient = useQueryClient()
-
   const authModal = useAuthModal()
   const { user } = useUser()
 
@@ -93,4 +94,4 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
   )
 }
 
-export default LikeButton
+export default memo(LikeButton)

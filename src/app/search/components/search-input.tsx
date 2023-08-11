@@ -7,13 +7,14 @@ import { useRouter } from 'next/navigation'
 
 import qs from 'query-string'
 
-import { Input } from '@/components/common'
-
 import { useDebounce } from '@/hooks'
 
+import { Input } from '@/components/common'
+
 const SearchInput: FC = () => {
-  const router = useRouter()
   const [value, setValue] = useState<string>('')
+
+  const router = useRouter()
   const debouncedValue = useDebounce<string>(value, 500)
 
   useEffect(() => {
