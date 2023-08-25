@@ -139,22 +139,16 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
       <div className='w-full flex justify-start'>
         <div className='flex items-center mili:gap-x-2 sm:gap-x-4'>
           {user ? (
-            <>
-              <MediaItem
-                data={song}
-                playerStyles='mili:max-w-[120px] sm:max-w-full atom:max-w-[70px]'
-              />
-              <LikeButton songId={song?.id} />
-            </>
-          ) : (
-            <Image
-              alt='liked'
-              height={50}
-              priority
-              src={ICONS.liked}
-              width={50}
-            />
-          )}
+        <>
+          <MediaItem
+            data={song}
+            playerStyles="mili:max-w-[120px] sm:max-w-full atom:max-w-[70px]"
+          />
+          {song && <LikeButton songId={song?.id} />}
+        </>
+      ) : (
+        <Image alt="liked" height={50} priority src={ICONS.liked} width={50} />
+      )}
         </div>
       </div>
 
