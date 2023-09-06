@@ -2,13 +2,14 @@
 
 import type { FC } from 'react'
 
+import Image from 'next/image'
+
 import type { Song } from '@/types'
 
 import { ICONS } from '@/lib/constants'
 
 import { useLoadImage } from '@/hooks'
 
-import { LazyLoadImage } from '@/components/common'
 import { PlayButton } from '@/components/icons'
 
 interface SongItemProps {
@@ -26,7 +27,13 @@ const SongItem: FC<SongItemProps> = ({ onClick, data }) => {
       onClick={onClick}
     >
       <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>
-        <LazyLoadImage alt='song' src={imagePath || ICONS.liked} />
+        <Image
+          alt='song'
+          height={100}
+          src={imagePath || ICONS.liked}
+          style={{ height: '100%', width: '100%' }}
+          width={100}
+        />
       </div>
 
       <div className='flex flex-col items-start w-full p-4 gap-y-1 text-white'>

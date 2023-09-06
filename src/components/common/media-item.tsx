@@ -2,7 +2,8 @@
 
 import type { FC } from 'react'
 
-import { LazyLoadImage } from '.'
+import Image from 'next/image'
+
 import { twMerge } from 'tailwind-merge'
 
 import type { Song } from '@/types'
@@ -33,11 +34,12 @@ const MediaItem: FC<MediaItemProps> = ({ data, onClick, playerStyles }) => {
       onClick={handleClick}
     >
       <div className='rounded-md overflow-hidden pt-2'>
-        <LazyLoadImage
+        <Image
           alt={data?.title}
-          height={50}
+          height={100}
           src={imageUrl || ICONS.liked}
-          width={50}
+          style={{ width: '50px', height: '50px' }}
+          width={100}
         />
       </div>
 

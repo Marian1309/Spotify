@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 
+import Image from 'next/image'
+
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -9,7 +11,7 @@ import type { Song } from '@/types'
 
 import { ICONS } from '@/lib/constants'
 
-import { Header, LazyLoadImage } from '@/components/common'
+import { Header } from '@/components/common'
 
 import { LikedContent } from './components'
 
@@ -56,10 +58,13 @@ const Liked = () => {
         <div className='mt-20'>
           <div className='flex flex-col md:flex-row items-center gap-x-5'>
             <div className='relative h-32 w-32 lg:h-44 lg:w-44'>
-              <LazyLoadImage
+              <Image
                 alt='liked'
                 className='object-cover'
+                height={100}
                 src={ICONS.liked}
+                style={{ width: '100%', height: '100%' }}
+                width={100}
               />
             </div>
 

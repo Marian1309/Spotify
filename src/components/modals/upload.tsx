@@ -3,6 +3,7 @@
 import type { ChangeEvent, FC } from 'react'
 import { useState } from 'react'
 
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,12 +18,11 @@ import type { SongUploadSchema } from '@/types'
 import { getImageDimensions, getPath } from '@/lib/utils'
 import { songUploadSchema } from '@/lib/validators'
 
+import { useUser } from '@/hooks'
 import { useUploadModal, useUploadPreview } from '@/hooks/zustand'
 
-import { Button, Input, LazyLoadImage } from '../common'
+import { Button, Input } from '../common'
 import { Modal } from '../radix-ui'
-
-import { useUser } from '@/hooks'
 
 type ChangeFn = (e: ChangeEvent<HTMLInputElement>) => void
 
@@ -242,10 +242,13 @@ const UploadModal: FC = () => {
         {previewImage && (
           <>
             <h3>Image preview</h3>
-            <LazyLoadImage
+            <Image
               alt='preview'
               className='atom:h-[100px] atom:w-[100px] mili:h-[200px] mili:w-[200px]'
+              height={100}
               src={previewImage}
+              style={{ width: '100%', height: '100%' }}
+              width={100}
             />
           </>
         )}
